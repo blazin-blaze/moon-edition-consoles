@@ -1,0 +1,152 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4J_Input", "4J_Input\4J_Input.vcxproj", "{A9125E77-A460-46FB-8EF3-2166F8657226}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4J_Profile", "4J_Profile\4J_Profile.vcxproj", "{C3833C67-05E4-4D6C-8707-22F95B6939E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4J_Render", "4J_Render\4J_Render.vcxproj", "{22938163-5DDB-4D04-883B-07212EB99FAE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4J_Storage", "4J_Storage\4J_Storage.vcxproj", "{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Headers", "Headers", "{1CB4373E-3F61-460C-B319-78C925BE3B8F}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\extraX64.h = Headers\extraX64.h
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4J_XTMS", "4J_XTMS\4J_XTMS.vcxproj", "{D0FDED0B-7704-4376-82DC-FF4377A7CD53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows64", "Windows64", "{88DD56AD-CF4F-4E6B-97DB-E70340672774}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\Windows64\4J_Input.h = Headers\Windows64\4J_Input.h
+		Headers\Windows64\4J_Profile.h = Headers\Windows64\4J_Profile.h
+		Headers\Windows64\4J_Render.h = Headers\Windows64\4J_Render.h
+		Headers\Windows64\4J_Storage.h = Headers\Windows64\4J_Storage.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Durango", "Durango", "{A00BAB82-E24D-492C-881B-951BEACBE9AF}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\Durango\4J_Input.h = Headers\Durango\4J_Input.h
+		Headers\Durango\4J_Profile.h = Headers\Durango\4J_Profile.h
+		Headers\Durango\4J_Render.h = Headers\Durango\4J_Render.h
+		Headers\Durango\4J_Storage.h = Headers\Durango\4J_Storage.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xbox", "Xbox", "{164C6036-01DB-4305-91D8-9121C5FA06EC}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\Xbox\4J_Input.h = Headers\Xbox\4J_Input.h
+		Headers\Xbox\4J_Profile.h = Headers\Xbox\4J_Profile.h
+		Headers\Xbox\4J_Render.h = Headers\Xbox\4J_Render.h
+		Headers\Xbox\4J_Storage.h = Headers\Xbox\4J_Storage.h
+		Headers\Xbox\4J_xtms.h = Headers\Xbox\4J_xtms.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PS3", "PS3", "{BCD14106-7AA2-457F-9162-7FEBBA403663}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\PS3\4J_Input.h = Headers\PS3\4J_Input.h
+		Headers\PS3\4J_Profile.h = Headers\PS3\4J_Profile.h
+		Headers\PS3\4J_Render.h = Headers\PS3\4J_Render.h
+		Headers\PS3\4J_Storage.h = Headers\PS3\4J_Storage.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orbis", "Orbis", "{F4BBB877-E60B-4227-AF80-E91B8B1D2D06}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\Orbis\4J_Input.h = Headers\Orbis\4J_Input.h
+		Headers\Orbis\4J_Profile.h = Headers\Orbis\4J_Profile.h
+		Headers\Orbis\4J_Render.h = Headers\Orbis\4J_Render.h
+		Headers\Orbis\4J_Storage.h = Headers\Orbis\4J_Storage.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PSVita", "PSVita", "{88A465DA-D5B6-4A15-BC3F-C0BE5CFE64B2}"
+	ProjectSection(SolutionItems) = preProject
+		Headers\PSVita\4J_Input.h = Headers\PSVita\4J_Input.h
+		Headers\PSVita\4J_Profile.h = Headers\PSVita\4J_Profile.h
+		Headers\PSVita\4J_Render.h = Headers\PSVita\4J_Render.h
+		Headers\PSVita\4J_Storage.h = Headers\PSVita\4J_Storage.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ORBIS = Debug|ORBIS
+		Debug|PS3 = Debug|PS3
+		Debug|PSVita = Debug|PSVita
+		Debug|Windows64 = Debug|Windows64
+		Debug|Xbox 360 = Debug|Xbox 360
+		Release|ORBIS = Release|ORBIS
+		Release|PS3 = Release|PS3
+		Release|PSVita = Release|PSVita
+		Release|Windows64 = Release|Windows64
+		Release|Xbox 360 = Release|Xbox 360
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|ORBIS.ActiveCfg = Debug|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|PS3.ActiveCfg = Debug|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|PSVita.ActiveCfg = Debug|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|Windows64.ActiveCfg = Debug|x64
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|Windows64.Build.0 = Debug|x64
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|ORBIS.ActiveCfg = Release|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|PS3.ActiveCfg = Release|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|PSVita.ActiveCfg = Release|Win32
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|Windows64.ActiveCfg = Release|x64
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|Windows64.Build.0 = Release|x64
+		{A9125E77-A460-46FB-8EF3-2166F8657226}.Release|Xbox 360.ActiveCfg = Release|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|ORBIS.ActiveCfg = Debug|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|PS3.ActiveCfg = Debug|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|PSVita.ActiveCfg = Debug|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|Windows64.ActiveCfg = Debug|x64
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|Windows64.Build.0 = Debug|x64
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|ORBIS.ActiveCfg = Release|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|PS3.ActiveCfg = Release|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|PSVita.ActiveCfg = Release|Win32
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|Windows64.ActiveCfg = Release|x64
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|Windows64.Build.0 = Release|x64
+		{C3833C67-05E4-4D6C-8707-22F95B6939E4}.Release|Xbox 360.ActiveCfg = Release|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|ORBIS.ActiveCfg = Debug|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|PS3.ActiveCfg = Debug|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|PSVita.ActiveCfg = Debug|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|Windows64.ActiveCfg = Debug|x64
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|Windows64.Build.0 = Debug|x64
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|ORBIS.ActiveCfg = Release|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|PS3.ActiveCfg = Release|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|PSVita.ActiveCfg = Release|Win32
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|Windows64.ActiveCfg = Release|x64
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|Windows64.Build.0 = Release|x64
+		{22938163-5DDB-4D04-883B-07212EB99FAE}.Release|Xbox 360.ActiveCfg = Release|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|ORBIS.ActiveCfg = Debug|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|PS3.ActiveCfg = Debug|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|PSVita.ActiveCfg = Debug|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|Windows64.ActiveCfg = Debug|x64
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|Windows64.Build.0 = Debug|x64
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|ORBIS.ActiveCfg = Release|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|PS3.ActiveCfg = Release|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|PSVita.ActiveCfg = Release|Win32
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|Windows64.ActiveCfg = Release|x64
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|Windows64.Build.0 = Release|x64
+		{2E28BC2E-BF30-4C83-A4D8-C967DD409D70}.Release|Xbox 360.ActiveCfg = Release|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Debug|ORBIS.ActiveCfg = Debug|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Debug|PS3.ActiveCfg = Debug|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Debug|PSVita.ActiveCfg = Debug|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Debug|Windows64.ActiveCfg = Debug|x64
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Release|ORBIS.ActiveCfg = Release|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Release|PS3.ActiveCfg = Release|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Release|PSVita.ActiveCfg = Release|Win32
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Release|Windows64.ActiveCfg = Release|x64
+		{D0FDED0B-7704-4376-82DC-FF4377A7CD53}.Release|Xbox 360.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88DD56AD-CF4F-4E6B-97DB-E70340672774} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+		{A00BAB82-E24D-492C-881B-951BEACBE9AF} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+		{164C6036-01DB-4305-91D8-9121C5FA06EC} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+		{BCD14106-7AA2-457F-9162-7FEBBA403663} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+		{F4BBB877-E60B-4227-AF80-E91B8B1D2D06} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+		{88A465DA-D5B6-4A15-BC3F-C0BE5CFE64B2} = {1CB4373E-3F61-460C-B319-78C925BE3B8F}
+	EndGlobalSection
+EndGlobal

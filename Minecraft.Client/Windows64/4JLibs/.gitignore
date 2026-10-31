@@ -1,0 +1,13 @@
+4J_*/x64/
+Debug/
+ipch/
+
+# Misc
+*.sdf
+*.suo
+*.opensdf
+VS_*
+
+# Output Folders
+libs/
+inc/
