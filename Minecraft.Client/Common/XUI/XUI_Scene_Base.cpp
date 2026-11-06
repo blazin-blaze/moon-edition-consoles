@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <assert.h>
+#include "BossMobGuiInfo.h"
 #include "..\..\MultiplayerLevel.h"
 #include "..\..\MultiplayerLocalPlayer.h"
 #include "..\..\StatsCounter.h"
@@ -161,6 +162,7 @@ void CXuiSceneBase::_TickAllBaseScenes()
 	// 4J-PB - added to upsell the texture pack if you join from invite and don't have it
 	// what texture pack are we using?
 	bool bCheckTexturePack=false;
+	float pfWidth, pfHeight;
 
 	for(int i=0;i<XUSER_MAX_COUNT;i++)
 	{
@@ -206,7 +208,9 @@ void CXuiSceneBase::_TickAllBaseScenes()
 		}
 	}
 
-	if (EnderDragonRenderer::bossInstance == NULL)
+	// Is boss present?
+	bool noBoss = BossMobGuiInfo::name.empty() || BossMobGuiInfo::displayTicks <= 0;
+	if (noBoss)
 	{
 		if(m_ticksWithNoBoss<=20)
 		{
@@ -215,13 +219,12 @@ void CXuiSceneBase::_TickAllBaseScenes()
 	}
 	else
 	{
-		shared_ptr<EnderDragon> boss = EnderDragonRenderer::bossInstance;
-		EnderDragonRenderer::bossInstance = nullptr;
+		BossMobGuiInfo::displayTicks--;
 		m_ticksWithNoBoss = 0;
 
 		for(unsigned int i = 0; i < XUSER_MAX_COUNT; ++i)
 		{
-			if(pMinecraft->localplayers[i] != NULL && pMinecraft->localplayers[i]->dimension == 1 && !ui.GetMenuDisplayed(i) && app.GetGameSettings(i,eGameSetting_DisplayHUD))
+			if(pMinecraft->localplayers[i] != NULL && !ui.GetMenuDisplayed(i) && app.GetGameSettings(i,eGameSetting_DisplayHUD))
 			{
 				int iGuiScale;	
 
@@ -234,7 +237,7 @@ void CXuiSceneBase::_TickAllBaseScenes()
 					iGuiScale=app.GetGameSettings(i,eGameSetting_UISizeSplitscreen);
 				}
 				m_BossHealthGroup[i].SetShow(TRUE);
-				m_BossHealthText[i].SetText( app.GetString( IDS_BOSS_ENDERDRAGON_HEALTH ) );		
+				m_BossHealthText[i].SetText( BossMobGuiInfo::name.c_str() );		
 
 				if(pMinecraft->localplayers[i]->m_iScreenSection == C4JRender::VIEWPORT_TYPE_FULLSCREEN)
 				{
@@ -366,8 +369,11 @@ void CXuiSceneBase::_TickAllBaseScenes()
 					}
 				}				
 
-				m_pBossHealthProgress[i].SetRange(0, boss->getMaxHealth() );
-				m_pBossHealthProgress[i].SetValue( boss->getHealth() );
+				m_pBossHealthProgress[i].GetBounds(&pfWidth, &pfHeight);
+	
+				m_pBossHealthProgress[i].SetRange( 0, pfWidth);
+				m_pBossHealthProgress[i].SetValue( BossMobGuiInfo::healthProgress * pfWidth);
+
 				m_bossHealthVisible[i] = TRUE;
 
 				_UpdateSelectedItemPos(i);

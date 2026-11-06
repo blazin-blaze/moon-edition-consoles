@@ -290,3 +290,9 @@ bool TorchTile::use(Level* level, int x, int y, int z, shared_ptr<Player> player
 	}
 	return true;
 }
+
+// 4J-PB - Adding a TestUse for tooltip display
+bool TorchTile::TestUse()
+{
+	return burntOut;
+}

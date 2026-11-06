@@ -26,6 +26,7 @@ protected:
 			MAP_OVERRIDE(IDC_UseRow, m_useRowControl)
 			MAP_OVERRIDE(IDC_Pointer, m_pointerControl)
 			MAP_CONTROL(IDC_InventoryText, m_InventoryText)
+			MAP_CONTROL(IDC_FireworksText, m_FireworksText)
 			MAP_OVERRIDE(IDC_Result, m_resultControl)
 			MAP_OVERRIDE(IDC_Ingredients, m_ingredientsControl)
 		END_MAP_CHILD_CONTROLS()
@@ -38,6 +39,7 @@ protected:
 private:
 	CXuiCtrlSlotList* m_resultControl;
 	CXuiCtrlSlotList* m_ingredientsControl;
+	CXuiControl m_FireworksText;
 	CXuiControl m_sceneGroup;
 
 	virtual CXuiControl* GetSectionControl( ESceneSection eSection );

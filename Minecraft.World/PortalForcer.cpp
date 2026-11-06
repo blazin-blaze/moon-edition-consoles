@@ -5,6 +5,7 @@
 #include "net.minecraft.world.level.dimension.h"
 #include "..\Minecraft.Client\ServerLevel.h"
 #include "PortalForcer.h"
+#include "..\Minecraft.Client\ServerPlayer.h"
 
 PortalForcer::PortalPosition::PortalPosition(int x, int y, int z, __int64 time) : Pos(x, y, z)
 {
@@ -60,6 +61,19 @@ void PortalForcer::force(shared_ptr<Entity> e, double xOriginal, double yOrigina
 
 	if (level->dimension->id == 2)
 	{
+		int x = Mth::floor(e->x);
+		int y = 100;
+		int z = Mth::floor(e->z);
+
+		e->moveTo(x, y, z, e->yRot, 0);
+		e->xd = e->yd = e->zd = 0;
+		
+		if(e->GetType() == eTYPE_SERVERPLAYER)
+		{
+			shared_ptr<ServerPlayer> plr = dynamic_pointer_cast<ServerPlayer>(e);
+			plr->moonTeleportationActive = false;
+		}
+
 		return;
 	}
 

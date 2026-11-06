@@ -318,7 +318,7 @@ void PlayerConnection::handleMovePlayer(shared_ptr<MovePlayerPacket> packet)
 		zDist = zt - player->z;
 		dist = xDist * xDist + yDist * yDist + zDist * zDist;
 		bool fail = false;
-		if (dist > 0.25 * 0.25 && !player->isSleeping() && !player->gameMode->isCreative() && !player->isAllowedToFly())
+		if (dist > 0.25 * 0.25 && !player->isSleeping() && !player->gameMode->isCreative() && !player->isAllowedToFly() && !player->moonTeleportationActive)
 		{
 			fail = true;
 			//            logger.warning(player->name + " moved wrongly!");

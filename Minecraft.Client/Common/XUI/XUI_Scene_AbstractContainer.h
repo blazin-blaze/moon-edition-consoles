@@ -76,9 +76,8 @@ public:
 	virtual void setSectionFocus(ESceneSection eSection, int iPad);
 	void setSectionSelectedSlot(ESceneSection eSection, int x, int y);
 	void setFocusToPointer(int iPad);
-	void SetPointerText(const wstring &description, vector<wstring> &unformattedStrings, bool newSlot);
-	virtual void SetPointerText(vector<HtmlString> *description, bool newSlot);
-	virtual Slot *getSlot(ESceneSection eSection, int iSlot);
+	void SetPointerText(vector<HtmlString> *description, bool newSlot);
+	Slot *getSlot(ESceneSection eSection, int iSlot);
 	virtual shared_ptr<ItemInstance> getSlotItem(ESceneSection eSection, int iSlot);
 	virtual bool isSlotEmpty(ESceneSection eSection, int iSlot);
 	virtual void adjustPointerForSafeZone();

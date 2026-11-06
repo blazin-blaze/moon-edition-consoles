@@ -385,9 +385,9 @@ void CXuiSceneAbstractContainer::setFocusToPointer(int iPad)
 	m_pointerControl->SetFocus( iPad );
 }
 
-void CXuiSceneAbstractContainer::SetPointerText(const wstring &description, vector<wstring> &unformattedStrings, bool newSlot)
+void CXuiSceneAbstractContainer::SetPointerText(vector<HtmlString> *description, bool newSlot)
 {
-	if(description.empty())
+	if(description == NULL || description->empty())
 	{
 		m_pointerControl->SetText(L"");
 		XuiElementSetShow(m_hPointerText,FALSE);
@@ -396,15 +396,14 @@ void CXuiSceneAbstractContainer::SetPointerText(const wstring &description, vect
 	}
 
 	bool smallPointer = m_bSplitscreen || (!RenderManager.IsHiDef() && !RenderManager.IsWidescreen());
-	wstring desc = L"<font size=\"" + _toString<int>(smallPointer ? 12 :14) + L"\">" + description + L"</font>";
 
 	XUIRect tempXuiRect, xuiRect;
 	HRESULT hr;
 	xuiRect.right = 0;
 
-	for(AUTO_VAR(it, unformattedStrings.begin()); it != unformattedStrings.end(); ++it)
+	for(AUTO_VAR(it, description->begin()); it != description->end(); ++it)
 	{
-		XuiTextPresenterMeasureText(m_hPointerTextMeasurer, parseXMLSpecials((*it)).c_str(), &tempXuiRect);
+		XuiTextPresenterMeasureText(m_hPointerTextMeasurer, it->text.c_str(), &tempXuiRect);
 		if(tempXuiRect.right > xuiRect.right) xuiRect = tempXuiRect;
 	}
 
@@ -412,7 +411,7 @@ void CXuiSceneAbstractContainer::SetPointerText(const wstring &description, vect
 	XuiElementSetBounds(m_hPointerTextBkg,xuiRect.right+4.0f+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, with 4 for the border, extra 4 for the background is fudge
 	XuiElementSetBounds(m_hPointerText,xuiRect.right+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, text is centred
 
-	XuiHtmlSetText(m_hPointerText, desc.c_str() );
+	XuiHtmlSetText(m_hPointerText, HtmlString::Compose(description).c_str() );
 
 	// Check if we need to resize the box
 	XUIContentDims contentDims;
@@ -446,30 +445,9 @@ void CXuiSceneAbstractContainer::SetPointerText(const wstring &description, vect
 	XuiElementSetShow(m_hPointerText,TRUE);
 }
 
-void CXuiSceneAbstractContainer::SetPointerText(vector<HtmlString> *description, bool newSlot)
-{
-	if(description == NULL || description->empty())
-	{
-		m_pointerControl->SetText(L"");
-		XuiElementSetShow(m_hPointerText,FALSE);
-		XuiElementSetShow(m_hPointerTextBkg,FALSE);
-		return;
-	}
-
-	wstring combinedText = HtmlString::Compose(description);
-
-	vector<wstring> unformattedStrings;
-	for(size_t i = 0; i < description->size(); ++i)
-	{
-		unformattedStrings.push_back((*description)[i].text);
-	}
-
-	SetPointerText(combinedText, unformattedStrings, newSlot);
-}
-
 Slot *CXuiSceneAbstractContainer::getSlot(ESceneSection eSection, int iSlot)
 {
-	return NULL;
+	return m_menu->getSlot(iSlot);
 }
 
 void CXuiSceneAbstractContainer::adjustPointerForSafeZone()

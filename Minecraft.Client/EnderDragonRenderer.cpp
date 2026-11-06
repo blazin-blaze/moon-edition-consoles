@@ -10,7 +10,6 @@ ResourceLocation EnderDragonRenderer::DRAGON_EXPLODING_LOCATION = ResourceLocati
 ResourceLocation EnderDragonRenderer::CRYSTAL_BEAM_LOCATION = ResourceLocation(TN_MOB_ENDERDRAGON_BEAM);
 ResourceLocation EnderDragonRenderer::DRAGON_EYES_LOCATION = ResourceLocation(TN_MOB_ENDERDRAGON_ENDEREYES);
 ResourceLocation EnderDragonRenderer::DRAGON_LOCATION = ResourceLocation(TN_MOB_ENDERDRAGON);
-shared_ptr<EnderDragon> EnderDragonRenderer::bossInstance = nullptr;
 
 EnderDragonRenderer::EnderDragonRenderer() : MobRenderer(new DragonModel(0), 0.5f)
 {

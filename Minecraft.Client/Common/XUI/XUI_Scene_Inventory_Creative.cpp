@@ -154,6 +154,7 @@ CXuiControl* CXuiSceneInventoryCreative::GetSectionControl( ESceneSection eSecti
 	case eSectionInventoryCreativeSlider:
 		return (CXuiControl *)&m_pageSlider;
 	default:
+		assert( false );
 		break;
 	}
 	return NULL;

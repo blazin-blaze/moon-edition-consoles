@@ -110,22 +110,12 @@ Item *ItemInstance::getItem() const
 
 Icon *ItemInstance::getIcon()
 {
-	Item *item = getItem();
-	if(item != NULL)
-	{
-		return item->getIcon(shared_from_this());
-	}
-	return NULL;
+	return getItem()->getIcon(shared_from_this());
 }
 
 int ItemInstance::getIconType()
 {
-	Item *item = getItem();
-	if(item != NULL)
-	{
-		return item->getIconType();
-	}
-	return 0;
+	return getItem()->getIconType();
 }
 
 bool ItemInstance::useOn(shared_ptr<Player> player, Level *level, int x, int y, int z, int face, float clickX, float clickY, float clickZ, bool bTestUseOnOnly)
@@ -575,10 +565,7 @@ vector<HtmlString> *ItemInstance::getHoverText(shared_ptr<Player> player, bool a
 
 	lines->push_back(title);
 
-	if(item != NULL)
-	{
-		item->appendHoverText(shared_from_this(), player, lines, advanced);
-	}
+	item->appendHoverText(shared_from_this(), player, lines, advanced);
 
 	if (hasTag())
 	{
@@ -673,10 +660,7 @@ vector<HtmlString> *ItemInstance::getHoverTextOnly(shared_ptr<Player> player, bo
 	vector<HtmlString> *lines = new vector<HtmlString>();
 	Item *item = Item::items[id];
 
-	if(item != NULL)
-	{
-		item->appendHoverText(shared_from_this(), player, lines, advanced);
-	}
+	item->appendHoverText(shared_from_this(), player, lines, advanced);
 
 	if (hasTag())
 	{
@@ -706,19 +690,12 @@ bool ItemInstance::isFoil()
 
 const Rarity *ItemInstance::getRarity()
 {
-	Item *item = getItem();
-	if(item != NULL)
-	{
-		return item->getRarity(shared_from_this());
-	}
-	return Rarity::common;
+	return getItem()->getRarity(shared_from_this());
 }
 
 bool ItemInstance::isEnchantable()
 {
-	Item *item = getItem();
-	if(item == NULL) return false;
-	if (!item->isEnchantable(shared_from_this())) return false;
+	if (!getItem()->isEnchantable(shared_from_this())) return false;
 	if (isEnchanted()) return false;
 	return true;
 }
@@ -811,15 +788,7 @@ attrAttrModMap *ItemInstance::getAttributeModifiers()
 	}
 	else
 	{
-		Item *item = getItem();
-		if(item != NULL)
-		{
-			result = item->getDefaultAttributeModifiers();
-		}
-		else
-		{
-			result = new attrAttrModMap();
-		}
+		result = getItem()->getDefaultAttributeModifiers();
 	}
 
 	return result;

@@ -126,7 +126,7 @@ bool CXuiCtrlSlotItemCtrlBase::isEmpty( HXUIOBJ hObj )
 	return true;
 }
 
-wstring CXuiCtrlSlotItemCtrlBase::GetItemDescription( HXUIOBJ hObj, vector<wstring> &unformattedStrings )
+wstring CXuiCtrlSlotItemCtrlBase::GetItemDescription( HXUIOBJ hObj )
 {
 	void* pvUserData;
 	XuiElementGetUserData( hObj, &pvUserData );
@@ -135,16 +135,11 @@ wstring CXuiCtrlSlotItemCtrlBase::GetItemDescription( HXUIOBJ hObj, vector<wstri
 	if(pUserDataContainer->slot != NULL)
 	{
 		wstring desc = L"";
-		vector<HtmlString> *rawStrings = pUserDataContainer->slot->getItem()->getHoverText(Minecraft::GetInstance()->localplayers[pUserDataContainer->m_iPad], false);
-		for(AUTO_VAR(rit, rawStrings->begin()); rit != rawStrings->end(); ++rit)
-		{
-			unformattedStrings.push_back(rit->text);
-		}
-		delete rawStrings;
+		vector<HtmlString> *strings = pUserDataContainer->slot->getItem()->getHoverText(Minecraft::GetInstance()->localplayers[pUserDataContainer->m_iPad], false);
 		bool firstLine = true;
-		for(AUTO_VAR(it, unformattedStrings.begin()); it != unformattedStrings.end(); ++it)
+		for(AUTO_VAR(it, strings->begin()); it != strings->end(); ++it)
 		{
-			wstring thisString = *it;
+			wstring thisString = it->text;
 			if(!firstLine)
 			{
 				desc.append( L"<br />" );
@@ -166,6 +161,7 @@ wstring CXuiCtrlSlotItemCtrlBase::GetItemDescription( HXUIOBJ hObj, vector<wstri
 			}
 			desc.append( thisString );
 		}
+		delete strings;
 		return desc;//app.GetString( pUserDataContainer->slot->getItem()->getDescriptionId() );
 	}
 	else if(pUserDataContainer->m_iPad >= 0 && pUserDataContainer->m_iPad < XUSER_MAX_COUNT)

@@ -261,9 +261,9 @@ void CXuiSceneTrading::setTradeItem(int index, shared_ptr<ItemInstance> item)
 	m_tradeHSlots[index]->SetIcon(getPad(), item, 12, 31, true);
 }
 
-void CXuiSceneTrading::setOfferDescription(const wstring &name, vector<wstring> &unformattedStrings)
+void CXuiSceneTrading::setOfferDescription(vector<HtmlString> *name)
 {
-	if(name.empty())
+	if (name == NULL || name->empty())
 	{
 		m_offerInfoControl.SetText(L"");
 		m_offerInfoControl.SetShow(FALSE);
@@ -271,15 +271,14 @@ void CXuiSceneTrading::setOfferDescription(const wstring &name, vector<wstring> 
 	}
 
 	bool smallPointer = m_bSplitscreen || (!RenderManager.IsHiDef() && !RenderManager.IsWidescreen());
-	wstring desc = L"<font size=\"" + _toString<int>(smallPointer ? 12 :14) + L"\">" + name + L"</font>";
 
 	XUIRect tempXuiRect, xuiRect;
 	HRESULT hr;
 	xuiRect.right = 0;
 
-	for(AUTO_VAR(it, unformattedStrings.begin()); it != unformattedStrings.end(); ++it)
+	for(AUTO_VAR(it, name->begin()); it != name->end(); ++it)
 	{
-		XuiTextPresenterMeasureText(m_hOfferInfoTextMeasurer, (*it).c_str(), &tempXuiRect);
+		XuiTextPresenterMeasureText(m_hOfferInfoTextMeasurer, it->text.c_str(), &tempXuiRect);
 		if(tempXuiRect.right > xuiRect.right) xuiRect = tempXuiRect;
 	}
 
@@ -287,7 +286,7 @@ void CXuiSceneTrading::setOfferDescription(const wstring &name, vector<wstring> 
 	XuiElementSetBounds(m_hOfferInfoTextBkg,xuiRect.right+4.0f+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, with 4 for the border, extra 4 for the background is fudge
 	XuiElementSetBounds(m_hOfferInfoText,xuiRect.right+4.0f+4.0f,xuiRect.bottom); // edge graphics are 8 pixels, text is centred
 
-	XuiHtmlSetText(m_hOfferInfoText, desc.c_str() );
+	XuiHtmlSetText(m_hOfferInfoText, HtmlString::Compose(name).c_str() );
 
 	// Check if we need to resize the box
 	XUIContentDims contentDims;
@@ -318,25 +317,4 @@ void CXuiSceneTrading::setOfferDescription(const wstring &name, vector<wstring> 
 		offerInfoPos.x = Math::round(highlightPos.x - backgroundWidth - highlightWidth * 0.1);
 	}
 	m_offerInfoControl.SetPosition(&offerInfoPos);
-}
-
-void CXuiSceneTrading::setOfferDescription(vector<HtmlString> *description)
-{
-	if(description == NULL || description->empty())
-	{
-		m_offerInfoControl.SetText(L"");
-		m_offerInfoControl.SetShow(FALSE);
-		return;
-	}
-
-	wstring combinedText;
-	vector<wstring> unformattedStrings;
-	for(size_t i = 0; i < description->size(); ++i)
-	{
-		combinedText += (*description)[i].text;
-		unformattedStrings.push_back((*description)[i].text);
-		if(i + 1 < description->size()) combinedText += L"\n";
-	}
-
-	setOfferDescription(combinedText, unformattedStrings);
 }

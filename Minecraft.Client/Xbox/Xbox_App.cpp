@@ -466,6 +466,8 @@ HRESULT CConsoleMinecraftApp::RegisterXuiClasses()
 	if( FAILED( hr ) ) return hr;     
 	hr = CXuiCtrlMinecraftPlayer::Register();
 	if( FAILED( hr ) ) return hr;
+	hr = CXuiCtrlMinecraftHorse::Register();
+	if (FAILED(hr)) return hr;
 	hr = CScene_Death::Register();
 	if( FAILED( hr ) ) return hr;
 	hr = CScene_TutorialPopup::Register();
@@ -633,6 +635,7 @@ HRESULT CConsoleMinecraftApp::UnregisterXuiClasses()
 	CScene_TutorialPopup::Unregister();
 	CScene_Death::Unregister();
 	CXuiCtrlMinecraftPlayer::Unregister();
+	CXuiCtrlMinecraftHorse::Unregister();
 	CXuiCtrlMinecraftSlot::Unregister();
 	CXuiCtrlLoadingProgress::Unregister();
 	CScene_FullscreenProgress::Unregister();
@@ -1720,6 +1723,8 @@ HRESULT CConsoleMinecraftApp::NavigateToScene(int iPad,EUIScene eScene, void *in
 		case eUIScene_OxygenatorMenu:
 		case eUIScene_AnvilMenu:
 		case eUIScene_TradingMenu:
+		case eUIScene_BeaconMenu:
+		case eUIScene_HorseMenu:
 			DebugPrintf("IGNORING NAVIGATE - we're trying to navigate to a user selected scene when there's already a scene up: pad:%d, scene:%d\n", iPad, eScene);
 			return S_FALSE;
 			break;
@@ -1903,6 +1908,10 @@ HRESULT CConsoleMinecraftApp::NavigateToScene(int iPad,EUIScene eScene, void *in
 	case eUIScene_EnchantingMenu:
 	case eUIScene_AnvilMenu:
 	case eUIScene_TradingMenu:
+	case eUIScene_HopperMenu:
+	case eUIScene_HorseMenu:
+	case eUIScene_FireworksMenu:
+	case eUIScene_BeaconMenu:
 		m_bContainerMenuDisplayed[iPad]=true;
 
 		// Intentional fall-through
@@ -1910,6 +1919,8 @@ HRESULT CConsoleMinecraftApp::NavigateToScene(int iPad,EUIScene eScene, void *in
 	case eUIScene_FullscreenProgress:		
 	case eUIScene_SignEntryMenu:
 	case eUIScene_EndPoem:
+	case eUIScene_Credits:
+	case eUIScene_LeaderboardsMenu:
 		m_bIgnoreAutosaveMenuDisplayed[iPad] = true;
 		break;
 	}

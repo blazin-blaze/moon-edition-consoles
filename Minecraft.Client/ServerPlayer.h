@@ -173,6 +173,8 @@ public:
 protected:
 	// 4J Added to record telemetry of player deaths, this should store the last source of damage
 	ETelemetryChallenges m_lastDamageSource;	
+public:
+	bool moonTeleportationActive;
 #ifdef _XBOX
 private:
 	bool moonAchievementObtained;

@@ -1,13 +1,10 @@
 #include "stdafx.h"
 
-#include "..\..\..\Minecraft.World\Container.h"
 #include "..\..\..\Minecraft.World\HorseInventoryMenu.h"
-#include "..\..\..\Minecraft.World\net.minecraft.world.entity.animal.h"
+#include "..\..\..\Minecraft.World\EntityHorse.h"
 #include "..\..\MultiplayerLocalPlayer.h"
 #include "XUI_Ctrl_SlotList.h"
 #include "XUI_Scene_HorseInventory.h"
-#include "XUI_Ctrl_SlotItemListItem.h"
-#include "XUI_Ctrl_SlotItem.h"
 #include "..\..\Common\Tutorial\Tutorial.h"
 #include "..\..\Common\Tutorial\TutorialMode.h"
 #include "..\..\Common\Tutorial\TutorialEnum.h"
@@ -21,13 +18,11 @@ HRESULT CXuiSceneHorseInventory::OnInit( XUIMessageInit* pInitData, BOOL& bHandl
 
 	HorseScreenInput* initData = (HorseScreenInput*)pInitData->pvInitData;
 
-	m_horse = initData->horse;
-	m_container = initData->container;
-	m_inventory = initData->inventory;
-
-	HorseInventoryMenu* menu = new HorseInventoryMenu( initData->inventory, initData->container, initData->horse );
+	XuiControlSetText(m_HorseText, initData->container->getName().c_str());
 
 	m_iPad=initData->iPad;
+	m_horse = initData->horse;
+	m_inventory = initData->inventory;
 	m_bSplitscreen=initData->bSplitscreen;
 
 #ifdef _XBOX
@@ -35,7 +30,7 @@ HRESULT CXuiSceneHorseInventory::OnInit( XUIMessageInit* pInitData, BOOL& bHandl
 	{
 		TutorialMode *gameMode = (TutorialMode *)pMinecraft->localgameModes[initData->iPad];
 		m_previousTutorialState = gameMode->getTutorial()->getCurrentState();
-		gameMode->getTutorial()->changeTutorialState(e_Tutorial_State_Container_Menu, this);
+		gameMode->getTutorial()->changeTutorialState(e_Tutorial_State_Horse_Menu, this);
 	}
 #endif
 
@@ -44,11 +39,24 @@ HRESULT CXuiSceneHorseInventory::OnInit( XUIMessageInit* pInitData, BOOL& bHandl
 		app.AdjustSplitscreenScene(m_hObj,&m_OriginalPosition,m_iPad);
 	}
 
+	HorseInventoryMenu* menu = new HorseInventoryMenu(initData->inventory, initData->container, initData->horse);
+
 	InitDataAssociations(initData->iPad, menu);
 
-	CXuiSceneAbstractContainer::Initialize( initData->iPad, menu, true, EntityHorse::INV_BASE_COUNT, (ESceneSection)0, eSectionHorseMax );
+	int startSlot = EntityHorse::INV_BASE_COUNT;
+	if (m_horse->isChestedHorse())
+	{
+		startSlot += EntityHorse::INV_DONKEY_CHEST_COUNT;
+	}
+	CXuiSceneAbstractContainer::Initialize( initData->iPad, menu, true, startSlot, eSectionHorseUsing, eSectionHorseMax );
 
-	m_bIgnoreKeyPresses = false;
+	// remove horse inventory
+	if (!m_horse->isChestedHorse())
+		m_chestControl->SetShow(FALSE);
+	
+	// cannot wear armor? remove armor slot!
+	if (!m_horse->canWearArmor())
+		m_armorControl->SetShow(FALSE);
 
 	delete initData;
 
@@ -137,11 +145,9 @@ void CXuiSceneHorseInventory::InitDataAssociations(int iPad, AbstractContainerMe
 	m_chestControl->SetData( iPad, menu, chestCount / 9, 9, EntityHorse::INV_BASE_COUNT );
 
 	int invStart = EntityHorse::INV_BASE_COUNT + chestCount;
-	int invRows = 3;
-	m_inventoryControl->SetData( iPad, menu, invRows, 9, invStart );
+	m_inventoryControl->SetData( iPad, menu, 3, 9, invStart );
 
-	int useRowStart = invStart + (invRows * 9);
-	m_useRowControl->SetData( iPad, menu, 1, 9, useRowStart );
+	m_useRowControl->SetData( iPad, menu, 1, 9, invStart + (3 * 9));
 
 	CXuiSceneAbstractContainer::InitDataAssociations(iPad, menu, EntityHorse::INV_BASE_COUNT + chestCount);
 }

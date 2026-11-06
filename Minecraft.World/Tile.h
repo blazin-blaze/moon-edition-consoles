@@ -375,8 +375,8 @@ public:
 	static const int moonQuartzOre_Id = 180;
 
 	static const int copperOre_Id = 181;
-	static const int aluminiumOre_Id = 182;
-	static const int tinOre_Id = 183;
+	static const int tinOre_Id = 182;
+	static const int aluminiumOre_Id = 183;
 	static const int siliconOre_Id = 184;
 
 	static const int deadTorch_Id = 185;

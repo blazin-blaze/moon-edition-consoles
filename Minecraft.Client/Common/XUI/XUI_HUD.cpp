@@ -173,8 +173,6 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 
 	if (pMinecraft->localgameModes[m_iPad]->canHurtPlayer())
 	{
-		m_random.setSeed(m_tickCount * 312871);
-
 		// Update health
 		int heartOffsetIndex = -1;
 		if (pMinecraft->localplayers[m_iPad]->hasEffect(MobEffect::regeneration))
@@ -187,6 +185,7 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 		int iHealth = pMinecraft->localplayers[m_iPad]->getHealth();
 		int iLastHealth = pMinecraft->localplayers[m_iPad]->lastHealth;
 		bool bHasPoison = pMinecraft->localplayers[m_iPad]->hasEffect(MobEffect::poison); 
+		bool bHasWither = pMinecraft->localplayers[m_iPad]->hasEffect(MobEffect::wither);
 		for (int icon = 0; icon < Player::MAX_HEALTH / 2; icon++)
 		{
 			if(blink)
@@ -197,6 +196,10 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 					if(bHasPoison)
 					{
 						m_healthIcon[icon].PlayVisualRange(L"FullPoisonFlash",NULL,L"FullPoisonFlash");
+					}
+					else if(bHasWither)
+					{
+						m_healthIcon[icon].PlayVisualRange(L"FullWitherFlash", NULL, L"FullWitherFlash");
 					}
 					else
 					{
@@ -209,6 +212,10 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 					if(bHasPoison)
 					{
 						m_healthIcon[icon].PlayVisualRange(L"HalfPoisonFlash",NULL,L"HalfPoisonFlash");
+					}
+					else if(bHasWither)
+					{
+						m_healthIcon[icon].PlayVisualRange(L"HalfWitherFlash", NULL, L"HalfWitherFlash");
 					}
 					else
 					{
@@ -230,6 +237,10 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 					{
 						m_healthIcon[icon].PlayVisualRange(L"FullPoison",NULL,L"FullPoison");
 					}
+					else if(bHasWither)
+					{
+						m_healthIcon[icon].PlayVisualRange(L"FullWither", NULL, L"FullWither");
+					}
 					else
 					{
 						m_healthIcon[icon].PlayVisualRange(L"Full",NULL,L"Full");
@@ -241,6 +252,10 @@ HRESULT CXuiSceneHud::OnCustomMessage_TickScene()
 					if(bHasPoison)
 					{
 						m_healthIcon[icon].PlayVisualRange(L"HalfPoison",NULL,L"HalfPoison");
+					}
+					else if(bHasWither)
+					{
+						m_healthIcon[icon].PlayVisualRange(L"HalfWither", NULL, L"HalfWither");
 					}
 					else
 					{

@@ -3,12 +3,8 @@
 #include "..\..\..\Minecraft.World\Container.h"
 #include "..\..\..\Minecraft.World\FireworksMenu.h"
 #include "..\..\MultiplayerLocalPlayer.h"
-#include "..\..\LocalPlayer.h"
-#include "..\..\Minecraft.h"
 #include "XUI_Ctrl_SlotList.h"
 #include "XUI_Scene_Fireworks.h"
-#include "XUI_Ctrl_SlotItemListItem.h"
-#include "XUI_Ctrl_SlotItem.h"
 #include "..\..\Common\Tutorial\Tutorial.h"
 #include "..\..\Common\Tutorial\TutorialMode.h"
 #include "..\..\Common\Tutorial\TutorialEnum.h"
@@ -18,12 +14,11 @@ HRESULT CXuiSceneFireworks::OnInit( XUIMessageInit* pInitData, BOOL& bHandled )
 	D3DXVECTOR3 vec;
 	MapChildControls();
 
+	XuiControlSetText(m_FireworksText, app.GetString(IDS_FIREWORKS));
+
 	Minecraft *pMinecraft = Minecraft::GetInstance();
 
 	FireworksScreenInput* initData = (FireworksScreenInput*)pInitData->pvInitData;
-
-	FireworksMenu* menu = new FireworksMenu( initData->player->inventory, initData->player->level, initData->x, initData->y, initData->z );
-
 	m_iPad=initData->iPad;
 	m_bSplitscreen=initData->bSplitscreen;
 
@@ -32,7 +27,7 @@ HRESULT CXuiSceneFireworks::OnInit( XUIMessageInit* pInitData, BOOL& bHandled )
 	{
 		TutorialMode *gameMode = (TutorialMode *)pMinecraft->localgameModes[initData->iPad];
 		m_previousTutorialState = gameMode->getTutorial()->getCurrentState();
-		gameMode->getTutorial()->changeTutorialState(e_Tutorial_State_Container_Menu, this);
+		gameMode->getTutorial()->changeTutorialState(e_Tutorial_State_Fireworks_Menu, this);
 	}
 #endif
 
@@ -41,11 +36,11 @@ HRESULT CXuiSceneFireworks::OnInit( XUIMessageInit* pInitData, BOOL& bHandled )
 		app.AdjustSplitscreenScene(m_hObj,&m_OriginalPosition,m_iPad);
 	}
 
+	FireworksMenu* menu = new FireworksMenu(initData->player->inventory, initData->player->level, initData->x, initData->y, initData->z);
+
 	InitDataAssociations(initData->iPad, menu);
 
-	CXuiSceneAbstractContainer::Initialize( initData->iPad, menu, true, FireworksMenu::INV_SLOT_START, (ESceneSection)0, eSectionFireworksMax );
-
-	m_bIgnoreKeyPresses = false;
+	CXuiSceneAbstractContainer::Initialize( initData->iPad, menu, true, FireworksMenu::INV_SLOT_START, eSectionFireworksUsing, eSectionFireworksMax );
 
 	delete initData;
 
@@ -116,14 +111,10 @@ CXuiCtrlSlotList* CXuiSceneFireworks::GetSectionSlotList( ESceneSection eSection
 
 void CXuiSceneFireworks::InitDataAssociations(int iPad, AbstractContainerMenu *menu, int startIndex)
 {
-	m_resultControl->SetData( iPad, menu, 1, 1, FireworksMenu::RESULT_SLOT );
+	int containerSize = menu->getSize() - (27 + 9);
 
+	m_resultControl->SetData( iPad, menu, 1, 1, FireworksMenu::RESULT_SLOT );
 	m_ingredientsControl->SetData( iPad, menu, 3, 3, FireworksMenu::CRAFT_SLOT_START );
 
-	int invRows = (FireworksMenu::INV_SLOT_END - FireworksMenu::INV_SLOT_START) / 9;
-	m_inventoryControl->SetData( iPad, menu, invRows, 9, FireworksMenu::INV_SLOT_START );
-
-	m_useRowControl->SetData( iPad, menu, 1, 9, FireworksMenu::USE_ROW_SLOT_START );
-
-	CXuiSceneAbstractContainer::InitDataAssociations(iPad, menu, FireworksMenu::INV_SLOT_START);
+	CXuiSceneAbstractContainer::InitDataAssociations(iPad, menu, containerSize);
 }

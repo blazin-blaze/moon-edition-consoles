@@ -59,6 +59,7 @@
 #include "..\Minecraft.World\StrongholdFeature.h"
 #include "..\Minecraft.World\IntCache.h"
 #include "..\Minecraft.World\Villager.h"
+#include "..\Minecraft.World\AlienVillager.h"
 #include "..\Minecraft.World\SparseLightStorage.h"
 #include "..\Minecraft.World\SparseDataStorage.h"
 #include "..\Minecraft.World\ChestTileEntity.h"
@@ -2348,6 +2349,14 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 				case Item::melon_Id:
 				case Item::rotten_flesh_Id:
 				case Item::spiderEye_Id:
+				case Item::cheese_Id:
+				case Item::poutine_Id:
+				case Item::cheeseburger_Id:
+				case Item::cannedBeef_Id:
+				case Item::dehydratedApple_Id:
+				case Item::dehydratedCarrot_Id:
+				case Item::dehydratedPotato_Id:
+				case Item::dehydratedMelon_Id:
 					// Check that we are actually hungry so will eat this item
 					{
 						FoodItem *food = (FoodItem *)itemInstance->getItem();
@@ -2527,6 +2536,10 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 								*piUse=IDS_TOOLTIPS_ATTACH;
 								break;
 
+							case Item::moonDungeonKey_Id:
+								*piUse=IDS_TOOLTIPS_UNLOCK;
+								break;
+
 							default:
 								*piUse=IDS_TOOLTIPS_PLACE;
 								break;
@@ -2539,9 +2552,11 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 						case Tile::enchantTable_Id:
 						case Tile::brewingStand_Id:
 						case Tile::workBench_Id:
+						case Tile::spaceWorkbench_Id:
 						case Tile::furnace_Id:
 						case Tile::furnace_lit_Id:
 						case Tile::door_wood_Id:
+						case Tile::quartzDoor_Id:
 						case Tile::dispenser_Id:
 						case Tile::lever_Id:
 						case Tile::button_stone_Id:
@@ -2550,6 +2565,7 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 						case Tile::fenceGate_Id:
 						case Tile::quartzFenceGate_Id:
 						case Tile::beacon_Id:
+						case Tile::oxygenator_Id:
 							*piAction=IDS_TOOLTIPS_MINE;
 							*piUse=IDS_TOOLTIPS_USE;
 							break;
@@ -2557,6 +2573,13 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 						case Tile::chest_Id:
 							*piAction = IDS_TOOLTIPS_MINE;
 							*piUse = (Tile::chest->getContainer(level,x,y,z) != NULL) ? IDS_TOOLTIPS_OPEN : -1;
+							break;
+						case Tile::treasureChest_Id:
+							*piAction = IDS_TOOLTIPS_MINE;
+							if (!bUseItemOn || itemInstance == NULL)
+							{
+								*piUse = (Tile::chest->getContainer(level,x,y,z) != NULL) ? IDS_TOOLTIPS_OPEN : -1;
+							}
 							break;
 
 						case Tile::enderChest_Id:
@@ -2606,6 +2629,7 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 							break;
 
 						case Tile::cake_Id:
+						case Tile::cheeseBlock_Id:
 							if (player->abilities.instabuild) // if in creative mode, we will mine
 							{
 								*piAction=IDS_TOOLTIPS_MINE;
@@ -2851,6 +2875,51 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 					case eTYPE_MINECART_RIDEABLE:
 						*piAction = IDS_TOOLTIPS_MINE;
 						*piUse = IDS_TOOLTIPS_RIDE; // are we in the minecart already? - 4J-JEV: Doesn't matter anymore.
+						break;
+
+					case eTYPE_BUGGY:
+						{
+						*piAction = IDS_TOOLTIPS_MINE;
+							shared_ptr<Buggy> buggy = dynamic_pointer_cast<Buggy>(hitResult->entity);
+							switch(heldItemId) {
+								case Item::buggyStorage_Id:
+									if(!buggy->getHasStorage() && player->isSneaking()) {
+										*piUse=IDS_TOOLTIPS_ATTACH;
+									} else if(buggy->getHasStorage() && player->isSneaking()) {
+										*piUse=IDS_TOOLTIPS_OPEN;
+									}else {
+										*piUse=IDS_TOOLTIPS_RIDE;
+									}
+									break;
+								default:
+									if(buggy->getHasStorage() && player->isSneaking()) {
+										*piUse=IDS_TOOLTIPS_OPEN;
+									}else {
+										*piUse=IDS_TOOLTIPS_RIDE;
+									}
+									break;
+							}
+						}
+						break;
+
+					case eTYPE_ROCKET:
+						{
+							shared_ptr<Rocket> rocket = dynamic_pointer_cast<Rocket>(hitResult->entity);
+							*piAction = IDS_TOOLTIPS_MINE;
+							switch(heldItemId) {
+								case Item::cake_Id:
+								case Item::fuelCanister_Id:
+									if(rocket->getFueled()) {
+										*piUse=IDS_TOOLTIPS_LAUNCH;
+									}else{
+										*piUse=IDS_TOOLTIPS_FUEL;
+									}
+									break;
+								default:
+									*piUse = IDS_TOOLTIPS_LAUNCH; // are we in the minecart already? - 4J-JEV: Doesn't matter anymore.
+									break;
+								}
+						}
 						break;
 						
 					case eTYPE_MINECART_FURNACE:
@@ -3173,6 +3242,18 @@ void Minecraft::tick(bool bFirst, bool bUpdateTextures)
 							// 4J-JEV: Cannot leash villagers.
 
 							shared_ptr<Villager> villager = dynamic_pointer_cast<Villager>(hitResult->entity);
+							if (!villager->isBaby())
+							{
+								*piUse=IDS_TOOLTIPS_TRADE;
+							}
+							*piAction=IDS_TOOLTIPS_HIT;
+						}
+						break;
+					case eTYPE_LUNAR:
+						{
+							// 4J-JEV: Cannot leash villagers.
+
+							shared_ptr<AlienVillager> villager = dynamic_pointer_cast<AlienVillager>(hitResult->entity);
 							if (!villager->isBaby())
 							{
 								*piUse=IDS_TOOLTIPS_TRADE;

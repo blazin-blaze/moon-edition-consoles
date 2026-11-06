@@ -35,6 +35,8 @@ void Rocket::_init()
 	this->setRocketId(g_nextRocketId++);
 	customName = L"";
 	this->setSize(0.5f*1.5f, 1.8f*1.5f);
+
+	entityBlockingLaunch = false;
 }
 
 Rocket::Rocket(Level* level) : Entity(level)
@@ -231,6 +233,23 @@ void Rocket::tick()
 		setCooldown(getCooldown() - 1);
 	}
 
+	//Should hopefully fix players getting stuck when a rocket is above another rocket?
+	entityBlockingLaunch = false;
+
+	AABB *launchSpace = this->bb->expand(0, 3, 0);
+	vector<shared_ptr<Entity> > *objects = level->getEntities(shared_from_this(), launchSpace);
+
+	AUTO_VAR(itEnd, objects->end());
+	for (AUTO_VAR(it, objects->begin()); it != itEnd; it++)
+	{
+		shared_ptr<Entity> e = *it;
+		if (launchSpace->intersects(e->bb))
+		{
+			entityBlockingLaunch = true;
+			break;
+		}
+	}
+
 	// Server code after this
 	if (level->isClientSide) return;
 
@@ -322,6 +341,16 @@ bool Rocket::interact(shared_ptr<Player> player)
 		else if(getFueled() && getCooldown() <= 0) {
 			if (isLaunchBlocked()) {
 				player->sendMessage(L"There are blocks above the rocket blocking the launch.");
+				setCooldown(3 * 20);
+				return true;
+			}
+			if(dimension == -1 || dimension == 1) {
+				player->sendMessage(L"You must launch from the overworld.");
+				setCooldown(3 * 20);
+				return true;
+			}
+			if(entityBlockingLaunch) {
+				player->sendMessage(L"There are entities above the rocket blocking the launch.");
 				setCooldown(3 * 20);
 				return true;
 			}

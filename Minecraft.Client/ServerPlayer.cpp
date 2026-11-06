@@ -53,6 +53,7 @@ ServerPlayer::ServerPlayer(MinecraftServer *server, Level *level, const wstring&
 	m_enteredEndExitPortal = false;
 	// lastCarried = ItemInstanceArray(5);
 	lastActionTime = 0;
+	moonTeleportationActive = false;
 
 	viewDistance = server->getPlayers()->getViewDistance();
 
@@ -310,7 +311,9 @@ void ServerPlayer::tick()
 	}
 
 #ifdef _XBOX
-	if(inventory->getOxygenSetup() && inventory->getFrequencyModule() && !getXAchievementObtained(XNotifyPacket::OXYGEN_SETUP_ACHIEVEMENT) && !app.GetGameHostOption(eGameHostOption_CheatsEnabled)) {
+	bool cheats = app.GetGameHostOption(eGameHostOption_CheatsEnabled) != 0;
+
+	if(inventory->getOxygenSetup() && inventory->getFrequencyModule() && !getXAchievementObtained(XNotifyPacket::OXYGEN_SETUP_ACHIEVEMENT) && !cheats) {
 		connection->send( shared_ptr<XNotifyPacket>( new XNotifyPacket(XNotifyPacket::OXYGEN_SETUP_ACHIEVEMENT)) );
 		setXAchievementObtained(XNotifyPacket::OXYGEN_SETUP_ACHIEVEMENT, true);
 	}
@@ -318,11 +321,11 @@ void ServerPlayer::tick()
 	for(int i = 0; i < inventory->items.length; i++) {
 		shared_ptr<ItemInstance> itemInstance = inventory->items[i];
 		if(itemInstance == NULL) continue;
-		if(itemInstance->id == Item::cheese_Id && !getXAchievementObtained(XNotifyPacket::MOON_CHEESE_ACHIEVEMENT) && !app.GetGameHostOption(eGameHostOption_CheatsEnabled)) {
+		if(itemInstance->id == Item::cheese_Id && !getXAchievementObtained(XNotifyPacket::MOON_CHEESE_ACHIEVEMENT) && !cheats) {
 			connection->send( shared_ptr<XNotifyPacket>( new XNotifyPacket(XNotifyPacket::MOON_CHEESE_ACHIEVEMENT)) );
 			setXAchievementObtained(XNotifyPacket::MOON_CHEESE_ACHIEVEMENT, true);
 		}
-		if(itemInstance->id == Item::buggy_Id && !getXAchievementObtained(XNotifyPacket::MOON_BUGGY_ACHIEVEMENT) && !app.GetGameHostOption(eGameHostOption_CheatsEnabled)) {
+		if(itemInstance->id == Item::buggy_Id && !getXAchievementObtained(XNotifyPacket::MOON_BUGGY_ACHIEVEMENT) && !cheats) {
 			connection->send( shared_ptr<XNotifyPacket>( new XNotifyPacket(XNotifyPacket::MOON_BUGGY_ACHIEVEMENT)) );
 			setXAchievementObtained(XNotifyPacket::MOON_BUGGY_ACHIEVEMENT, true);
 		}
@@ -330,7 +333,7 @@ void ServerPlayer::tick()
 
 	if(this->dimension == 2 && !this->dead){
 		if(this->ticksSurvivedOnMoon >= 24000) {
-			if(!getXAchievementObtained(XNotifyPacket::MOON_SURVIVAL_ACHIEVEMENT) && !app.GetGameHostOption(eGameHostOption_CheatsEnabled)) {
+			if(!getXAchievementObtained(XNotifyPacket::MOON_SURVIVAL_ACHIEVEMENT) && !cheats) {
 				connection->send( shared_ptr<XNotifyPacket>( new XNotifyPacket(XNotifyPacket::MOON_SURVIVAL_ACHIEVEMENT)));
 				setXAchievementObtained(XNotifyPacket::MOON_SURVIVAL_ACHIEVEMENT, true);
 			}
@@ -862,7 +865,9 @@ void ServerPlayer::changeDimension(int i)
 		else
 		{
 #ifdef _XBOX
-			if(i == 2 && !getXAchievementObtained(XNotifyPacket::MOON_ACHIEVEMENT) && !app.GetGameHostOption(eGameHostOption_CheatsEnabled)) {
+			bool cheats = app.GetGameHostOption(eGameHostOption_CheatsEnabled) != 0;
+
+			if(i == 2 && !getXAchievementObtained(XNotifyPacket::MOON_ACHIEVEMENT) && !cheats) {
 				connection->send( shared_ptr<XNotifyPacket>( new XNotifyPacket(XNotifyPacket::MOON_ACHIEVEMENT)) );
 				setXAchievementObtained(XNotifyPacket::MOON_ACHIEVEMENT, true);
 			}

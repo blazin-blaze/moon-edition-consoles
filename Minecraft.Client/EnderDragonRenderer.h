@@ -1,17 +1,10 @@
 #pragma once
 #include "MobRenderer.h"
 
-#ifdef _XBOX
-class EnderDragon;
-#endif
 class DragonModel;
 
-class EnderDragon;
 class EnderDragonRenderer : public MobRenderer
 {
-public:
-	static shared_ptr<EnderDragon> bossInstance;
-
 private:
 	static ResourceLocation DRAGON_EXPLODING_LOCATION;
 	static ResourceLocation CRYSTAL_BEAM_LOCATION;

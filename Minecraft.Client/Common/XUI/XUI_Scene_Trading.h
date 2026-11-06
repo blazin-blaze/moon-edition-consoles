@@ -124,6 +124,5 @@ protected:
 	virtual void setRequest2Item(shared_ptr<ItemInstance> item);
 	virtual void setTradeItem(int index, shared_ptr<ItemInstance> item);
 	
-	virtual void setOfferDescription(const wstring &name, vector<wstring> &unformattedStrings);
-	virtual void setOfferDescription(vector<HtmlString> *description);
+	virtual void setOfferDescription(vector<HtmlString> *name);
 };

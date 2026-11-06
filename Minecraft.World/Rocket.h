@@ -50,6 +50,7 @@ private:
 	int ticksUntilNextSound;
 	bool hasPlayedLaunchSound;
 	bool doLerp;
+	bool entityBlockingLaunch;
 	wstring customName;
 	virtual void setPrelaunchTime(int preLaunch);
 	bool shouldFall(int tile);

@@ -757,10 +757,7 @@ void IUIScene_AbstractContainerMenu::onMouseTick()
 			{
 				bCarriedIsSameAsSlot = IsSameItemAs(carriedItem, slotItem);
 				bCanCombine = m_menu->mayCombine(slot,carriedItem);
-				if(bCanCombine && slotItem != NULL)
-				{
-					bCanDye = dynamic_cast<ArmorItem *>(slotItem->getItem()) != NULL;
-				}
+				bCanDye = bCanCombine && dynamic_cast<ArmorItem *>(slot->getItem()->getItem());
 
 				if ( bCarriedIsSameAsSlot )
 				{
@@ -920,63 +917,60 @@ void IUIScene_AbstractContainerMenu::onMouseTick()
 			if((eSectionUnderPointer==eSectionInventoryUsing)||(eSectionUnderPointer==eSectionInventoryInventory))
 			{
 				shared_ptr<ItemInstance> item = getSlotItem(eSectionUnderPointer, iNewSlotIndex);
-				if(item != NULL)
-				{
-					ArmorRecipes::_eArmorType eArmourType=ArmorRecipes::GetArmorType(item->id);
+				ArmorRecipes::_eArmorType eArmourType=ArmorRecipes::GetArmorType(item->id);
 
-					if(eArmourType==ArmorRecipes::eArmorType_None)
+				if(eArmourType==ArmorRecipes::eArmorType_None)
+				{
+					buttonY = eToolTipQuickMove;
+				}
+				else
+				{
+					// check that the slot required is empty
+					switch(eArmourType)
 					{
-						buttonY = eToolTipQuickMove;
-					}
-					else
-					{
-						// check that the slot required is empty
-						switch(eArmourType)
+					case ArmorRecipes::eArmorType_Helmet:
+						if(isSlotEmpty(eSectionInventoryArmor,0))
 						{
-						case ArmorRecipes::eArmorType_Helmet:
-							if(isSlotEmpty(eSectionInventoryArmor,0))
-							{
-								buttonY = eToolTipEquip;
-							}
-							else
-							{
-								buttonY = eToolTipQuickMove;
-							}
-							break;
-						case ArmorRecipes::eArmorType_Chestplate:
-							if(isSlotEmpty(eSectionInventoryArmor,1))
-							{
-								buttonY = eToolTipEquip;
-							}
-							else
-							{
-								buttonY = eToolTipQuickMove;
-							}								
-							break;
-						case ArmorRecipes::eArmorType_Leggings:
-							if(isSlotEmpty(eSectionInventoryArmor,2))
-							{
-								buttonY = eToolTipEquip;
-							}
-							else
-							{
-								buttonY = eToolTipQuickMove;
-							}
-							break;
-						case ArmorRecipes::eArmorType_Boots:
-							if(isSlotEmpty(eSectionInventoryArmor,3))
-							{
-								buttonY = eToolTipEquip;
-							}
-							else
-							{
-								buttonY = eToolTipQuickMove;
-							}
-							break;
-						default:
-							buttonY = eToolTipQuickMove;
-							break;
+							buttonY = eToolTipEquip;
 						}
+						else
+						{
+							buttonY = eToolTipQuickMove;
+						}
+						break;
+					case ArmorRecipes::eArmorType_Chestplate:
+						if(isSlotEmpty(eSectionInventoryArmor,1))
+						{
+							buttonY = eToolTipEquip;
+						}
+						else
+						{
+							buttonY = eToolTipQuickMove;
+						}								
+						break;
+					case ArmorRecipes::eArmorType_Leggings:
+						if(isSlotEmpty(eSectionInventoryArmor,2))
+						{
+							buttonY = eToolTipEquip;
+						}
+						else
+						{
+							buttonY = eToolTipQuickMove;
+						}
+						break;
+					case ArmorRecipes::eArmorType_Boots:
+						if(isSlotEmpty(eSectionInventoryArmor,3))
+						{
+							buttonY = eToolTipEquip;
+						}
+						else
+						{
+							buttonY = eToolTipQuickMove;
+						}
+						break;
+					default:
+						buttonY = eToolTipQuickMove;
+						break;
 					}
 				}
 			}
@@ -985,55 +979,76 @@ void IUIScene_AbstractContainerMenu::onMouseTick()
 			{
 				// Get the info on this item.
 				shared_ptr<ItemInstance> item = getSlotItem(eSectionUnderPointer, iNewSlotIndex);
-				if(item != NULL)
-				{
-					bool bValidFuel = FurnaceTileEntity::isFuel(item);
-					bool bValidIngredient = false;
-					Item *furnaceItem = item->getItem();
-					if(furnaceItem != NULL)
-					{
-						bValidIngredient = FurnaceRecipes::getInstance()->getResult(furnaceItem->id) != NULL;
-					}
+				bool bValidFuel = FurnaceTileEntity::isFuel(item);
+				bool bValidIngredient = FurnaceRecipes::getInstance()->getResult(item->getItem()->id) != NULL;
 
-					if(bValidIngredient)
+				if(bValidIngredient)
+				{
+					// is there already something in the ingredient slot?
+					if(!isSlotEmpty(eSectionFurnaceIngredient,0))
 					{
-						// is there already something in the ingredient slot?
-						if(!isSlotEmpty(eSectionFurnaceIngredient,0))
+						// is it the same as this item
+						shared_ptr<ItemInstance> IngredientItem = getSlotItem(eSectionFurnaceIngredient,0);
+						if(IngredientItem->id == item->id)
 						{
-							// is it the same as this item
-							shared_ptr<ItemInstance> IngredientItem = getSlotItem(eSectionFurnaceIngredient,0);
-							if(IngredientItem != NULL && IngredientItem->id == item->id)
-							{
-								buttonY = eToolTipQuickMoveIngredient;
-							}
-							else
-							{
-								if(FurnaceRecipes::getInstance()->getResult(item->id)==NULL)
-								{
-									buttonY = eToolTipQuickMove;
-								}
-								else
-								{
-									buttonY = eToolTipQuickMoveIngredient;
-								}
-							}
+							buttonY = eToolTipQuickMoveIngredient;
 						}
 						else
 						{
-							// ingredient slot empty
-							buttonY = eToolTipQuickMoveIngredient;
+							if(FurnaceRecipes::getInstance()->getResult(item->id)==NULL)
+							{
+								buttonY = eToolTipQuickMove;
+							}
+							else
+							{
+								buttonY = eToolTipQuickMoveIngredient;
+							}
 						}
 					}
-					else if(bValidFuel)
+					else
 					{
-						// Is there already something in the fuel slot?
-						if(!isSlotEmpty(eSectionFurnaceFuel,0))
+						// ingredient slot empty
+						buttonY = eToolTipQuickMoveIngredient;
+					}
+				}
+				else if(bValidFuel)
+				{
+					// Is there already something in the fuel slot?
+					if(!isSlotEmpty(eSectionFurnaceFuel,0))
+					{
+						// is it the same as this item
+						shared_ptr<ItemInstance> fuelItem = getSlotItem(eSectionFurnaceFuel,0);
+						if(fuelItem->id == item->id)
 						{
-							// is it the same as this item
-							shared_ptr<ItemInstance> fuelItem = getSlotItem(eSectionFurnaceFuel,0);
-							if(fuelItem != NULL && fuelItem->id == item->id)
+							buttonY = eToolTipQuickMoveFuel;
+						}
+						else if(bValidIngredient)
+						{
+							// check if the ingredient slot is empty, or the same as this
+							if(!isSlotEmpty(eSectionFurnaceIngredient,0))
 							{
-								buttonY = eToolTipQuickMoveFuel;
+								// is it the same as this item
+								shared_ptr<ItemInstance> IngredientItem = getSlotItem(eSectionFurnaceIngredient,0);
+								if(IngredientItem->id == item->id)
+								{
+									buttonY = eToolTipQuickMoveIngredient;
+								}
+								else
+								{
+									if(FurnaceRecipes::getInstance()->getResult(item->id)==NULL)
+									{
+										buttonY = eToolTipQuickMove;
+									}
+									else
+									{
+										buttonY = eToolTipQuickMoveIngredient;
+									}
+								}
+							}
+							else
+							{
+								// ingredient slot empty
+								buttonY = eToolTipQuickMoveIngredient;
 							}
 						}
 						else
@@ -1056,135 +1071,129 @@ void IUIScene_AbstractContainerMenu::onMouseTick()
 			{
 				// Get the info on this item.
 				shared_ptr<ItemInstance> item = getSlotItem(eSectionUnderPointer, iNewSlotIndex);
-				if(item != NULL)
+				int iId=item->id;
+
+				// valid ingredient?
+				bool bValidIngredient=false;
+				//bool bValidIngredientBottom=false;
+
+				if(Item::items[iId]->hasPotionBrewingFormula() || (iId == Item::netherwart_seeds_Id))
 				{
-					int iId=item->id;
+					bValidIngredient=true;
+				}
 
-					// valid ingredient?
-					bool bValidIngredient=false;
-					//bool bValidIngredientBottom=false;
-
-					if(Item::items[iId] != NULL && (Item::items[iId]->hasPotionBrewingFormula() || (iId == Item::netherwart_seeds_Id)))
+				if(bValidIngredient)
+				{
+					// is there already something in the ingredient slot?
+					if(!isSlotEmpty(eSectionBrewingIngredient,0))
 					{
-						bValidIngredient=true;
-					}
-
-					if(bValidIngredient)
-					{
-						// is there already something in the ingredient slot?
-						if(!isSlotEmpty(eSectionBrewingIngredient,0))
+						// is it the same as this item
+						shared_ptr<ItemInstance> IngredientItem = getSlotItem(eSectionBrewingIngredient,0);
+						if(IngredientItem->id == item->id)
 						{
-							// is it the same as this item
-							shared_ptr<ItemInstance> IngredientItem = getSlotItem(eSectionBrewingIngredient,0);
-							if(IngredientItem != NULL && IngredientItem->id == item->id)
-							{
-								buttonY = eToolTipQuickMoveIngredient;
-							}
-							else
-							{
-								buttonY=eToolTipQuickMove;
-							}
-						}
-						else
-						{
-							// ingredient slot empty
 							buttonY = eToolTipQuickMoveIngredient;
-						}
-					}						
-					else
-					{
-						// valid potion? Glass bottle with water in it is a 'potion' too.
-						if(iId==Item::potion_Id)
-						{
-							// space available?
-							if(isSlotEmpty(eSectionBrewingBottle1,0) || 
-								isSlotEmpty(eSectionBrewingBottle2,0) || 
-								isSlotEmpty(eSectionBrewingBottle3,0))
-							{
-								buttonY = eToolTipQuickMoveIngredient;
-							}
-							else
-							{
-								buttonY=eToolTipNone;
-							}
 						}
 						else
 						{
 							buttonY=eToolTipQuickMove;
 						}
 					}
+					else
+					{
+						// ingredient slot empty
+						buttonY = eToolTipQuickMoveIngredient;
+					}
+				}						
+				else
+				{
+					// valid potion? Glass bottle with water in it is a 'potion' too.
+					if(iId==Item::potion_Id)
+					{
+						// space available?
+						if(isSlotEmpty(eSectionBrewingBottle1,0) || 
+							isSlotEmpty(eSectionBrewingBottle2,0) || 
+							isSlotEmpty(eSectionBrewingBottle3,0))
+						{
+							buttonY = eToolTipQuickMoveIngredient;
+						}
+						else
+						{
+							buttonY=eToolTipNone;
+						}
+					}
+					else
+					{
+						buttonY=eToolTipQuickMove;
+					}
 				}
+
 			}
 			else if((eSectionUnderPointer==eSectionEnchantUsing)||(eSectionUnderPointer==eSectionEnchantInventory))
 			{
 				// Get the info on this item.
 				shared_ptr<ItemInstance> item = getSlotItem(eSectionUnderPointer, iNewSlotIndex);
-				if(item != NULL)
+				int iId=item->id;
+
+				// valid enchantable tool?
+				if(Item::items[iId]->isEnchantable(item))
 				{
-					int iId=item->id;
-
-					// valid enchantable tool?
-					Item *enchantItem = Item::items[iId];
-					if(enchantItem != NULL && enchantItem->isEnchantable(item))
-					{
-						// is there already something in the ingredient slot?
-						if(isSlotEmpty(eSectionEnchantSlot,0))
-						{					
-							// tool slot empty	
-							switch(iId)
-							{
-							case Item::bow_Id:
-							case Item::sword_wood_Id:
-							case Item::sword_stone_Id:
-							case Item::sword_iron_Id:
-							case Item::sword_diamond_Id:
-								buttonY=eToolTipQuickMoveWeapon;
-								break;
-
-							case Item::helmet_leather_Id:
-							case Item::chestplate_leather_Id:
-							case Item::leggings_leather_Id:
-							case Item::boots_leather_Id:
-
-							case Item::helmet_chain_Id:
-							case Item::chestplate_chain_Id:
-							case Item::leggings_chain_Id:
-							case Item::boots_chain_Id:
-
-							case Item::helmet_iron_Id:
-							case Item::chestplate_iron_Id:
-							case Item::leggings_iron_Id:
-							case Item::boots_iron_Id:
-
-							case Item::helmet_diamond_Id:
-							case Item::chestplate_diamond_Id:
-							case Item::leggings_diamond_Id:
-							case Item::boots_diamond_Id:
-
-							case Item::helmet_gold_Id:
-							case Item::chestplate_gold_Id:
-							case Item::leggings_gold_Id:
-							case Item::boots_gold_Id:
-								buttonY=eToolTipQuickMoveArmor;
-
-								break;
-							case Item::book_Id:
-								buttonY = eToolTipQuickMove;
-								break;
-							default:
-								buttonY=eToolTipQuickMoveTool;									
-								break;
-							}
-						}
-						else
+					// is there already something in the ingredient slot?
+					if(isSlotEmpty(eSectionEnchantSlot,0))
+					{					
+						// tool slot empty	
+						switch(iId)
 						{
+						case Item::bow_Id:
+						case Item::sword_wood_Id:
+						case Item::sword_stone_Id:
+						case Item::sword_iron_Id:
+						case Item::sword_diamond_Id:
+							buttonY=eToolTipQuickMoveWeapon;
+							break;
+
+						case Item::helmet_leather_Id:
+						case Item::chestplate_leather_Id:
+						case Item::leggings_leather_Id:
+						case Item::boots_leather_Id:
+
+						case Item::helmet_chain_Id:
+						case Item::chestplate_chain_Id:
+						case Item::leggings_chain_Id:
+						case Item::boots_chain_Id:
+
+						case Item::helmet_iron_Id:
+						case Item::chestplate_iron_Id:
+						case Item::leggings_iron_Id:
+						case Item::boots_iron_Id:
+
+						case Item::helmet_diamond_Id:
+						case Item::chestplate_diamond_Id:
+						case Item::leggings_diamond_Id:
+						case Item::boots_diamond_Id:
+
+						case Item::helmet_gold_Id:
+						case Item::chestplate_gold_Id:
+						case Item::leggings_gold_Id:
+						case Item::boots_gold_Id:
+							buttonY=eToolTipQuickMoveArmor;
+
+							break;
+						case Item::book_Id:
 							buttonY = eToolTipQuickMove;
+							break;
+						default:
+							buttonY=eToolTipQuickMoveTool;									
+							break;
 						}
 					}
 					else
 					{
-						buttonY=eToolTipQuickMove;							
+						buttonY = eToolTipQuickMove;
 					}
+				}						
+				else
+				{
+					buttonY=eToolTipQuickMove;							
 				}
 			}
 			else
@@ -1583,22 +1592,14 @@ vector<HtmlString> *IUIScene_AbstractContainerMenu::GetItemDescription(Slot *slo
 {
 	if(slot == NULL) return NULL;
 
-	shared_ptr<ItemInstance> itemInst = slot->getItem();
-	if(itemInst == NULL) return NULL;
-
-	vector<HtmlString> *lines = itemInst->getHoverText(nullptr, false);
-	if(lines == NULL) return NULL;
+	vector<HtmlString> *lines = slot->getItem()->getHoverText(nullptr, false);
 
 	// Add rarity to first line
 	if (lines->size() > 0)
 	{
-		const Rarity *rarity = itemInst->getRarity();
-		if(rarity != NULL)
-		{
-			lines->at(0).color = rarity->color;
-		}
+		lines->at(0).color = slot->getItem()->getRarity()->color;
 
-		if(itemInst->hasCustomHoverName())
+		if(slot->getItem()->hasCustomHoverName())
 		{
 			lines->at(0).color = eTextColor_RenamedItemTitle;
 		}

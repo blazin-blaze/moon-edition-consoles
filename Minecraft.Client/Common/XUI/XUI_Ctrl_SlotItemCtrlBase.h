@@ -47,7 +47,7 @@ public:
 
 	bool isEmpty( HXUIOBJ hObj );
 
-	wstring GetItemDescription( HXUIOBJ hObj, vector<wstring> &unformattedStrings );
+	wstring GetItemDescription( HXUIOBJ hObj );
 
 	shared_ptr<ItemInstance> getItemInstance( HXUIOBJ hObj );
 	Slot *getSlot( HXUIOBJ hObj );

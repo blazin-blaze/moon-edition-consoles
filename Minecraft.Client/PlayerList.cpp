@@ -826,6 +826,13 @@ void PlayerList::toggleDimension(shared_ptr<ServerPlayer> player, int targetDime
 
 void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDimension, ServerLevel *oldLevel, ServerLevel *newLevel)
 {
+	//This is to stop moving from y = 500 to y = 100 being counted as a "fail" in server movement.
+	if(entity->GetType() == eTYPE_SERVERPLAYER)
+	{
+		shared_ptr<ServerPlayer> plr = dynamic_pointer_cast<ServerPlayer>(entity);
+		plr->moonTeleportationActive = true;
+	}
+
 	double xt = entity->x;
 	double zt = entity->z;
 	double xOriginal = entity->x;
@@ -833,7 +840,7 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 	double zOriginal = entity->z;
 	float yRotOriginal = entity->yRot;
 	double scale = newLevel->getLevelData()->getHellScale(); // 4J Scale was 8 but this is all we can fit in
-	if (entity->dimension == -1)
+	if (entity->dimension == -1 || entity->dimension == 2)
 	{
 		xt /= scale;
 		zt /= scale;
@@ -877,18 +884,6 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 		{
 			oldLevel->tick(entity, false);
 		}
-	}else if(entity->dimension == 2) {
-		xt /= scale;
-		zt /= scale;
-#ifdef _LARGE_WORLDS
-		entity->moveTo(xt, 250, zt, entity->yRot, entity->xRot);
-#else
-		entity->moveTo(xt, 100, zt, entity->yRot, entity->xRot);
-#endif
-		if (entity->isAlive())
-		{
-			oldLevel->tick(entity, false);
-		}
 	}
 
 	if(entity->GetType() == eTYPE_SERVERPLAYER)
@@ -898,7 +893,7 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 		addPlayerToReceiving(player);
 	}
 
-	if (lastDimension != 1)
+	if (lastDimension != 1 && lastDimension != 2)
 	{
 		xt = (double) Mth::clamp((int) xt, -Level::MAX_LEVEL_SIZE + 128, Level::MAX_LEVEL_SIZE - 128);
 		zt = (double) Mth::clamp((int) zt, -Level::MAX_LEVEL_SIZE + 128, Level::MAX_LEVEL_SIZE - 128);
@@ -907,11 +902,9 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 			newLevel->addEntity(entity);
 			entity->moveTo(xt, entity->y, zt, entity->yRot, entity->xRot);
 			newLevel->tick(entity, false);
-			if (lastDimension != 2) {
-				newLevel->cache->autoCreate = true;
-				newLevel->getPortalForcer()->force(entity, xOriginal, yOriginal, zOriginal, yRotOriginal);
-				newLevel->cache->autoCreate = false;
-			}
+			newLevel->cache->autoCreate = true;
+			newLevel->getPortalForcer()->force(entity, xOriginal, yOriginal, zOriginal, yRotOriginal);
+			newLevel->cache->autoCreate = false;
 		}
 	}
 
