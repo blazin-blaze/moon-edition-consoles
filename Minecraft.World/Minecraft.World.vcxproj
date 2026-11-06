@@ -924,7 +924,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <PrecompiledHeaderOutputFile>$(OutDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PreprocessorDefinitions>_TU_BUILD;_FINAL_BUILD;NDEBUG;_XBOX;_LIB;_CONTENT_PACKAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_FINAL_BUILD;_ITERATOR_DEBUG_LEVEL=0;NDEBUG;_XBOX;_CONTENT_PACKAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

@@ -135,13 +135,15 @@ typedef XUID GameSessionUID;
 #include "PerformanceTimer.h"
 
 
-#if defined(_FINAL_BUILD) && !defined(_WINDOWS64)
+#if !defined(_WINDOWS64)
+#if defined(_FINAL_BUILD)
 #define printf BREAKTHECOMPILE
 #define wprintf BREAKTHECOMPILE
 #undef OutputDebugString
 #define OutputDebugString BREAKTHECOMPILE
 #define OutputDebugStringA BREAKTHECOMPILE
 #define OutputDebugStringW BREAKTHECOMPILE
+#endif
 #endif
 
 

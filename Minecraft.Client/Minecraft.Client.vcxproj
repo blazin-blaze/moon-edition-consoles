@@ -521,7 +521,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ContentPackage|Xbox 360'">
     <LinkIncremental>false</LinkIncremental>
     <OutputFile>$(OutDir)default$(TargetExt)</OutputFile>
-    <ImageXexOutput>$(OutDir)default.xex</ImageXexOutput>
+    <ImageXexOutput>$(SolutionDir)X360_$(Configuration)\$(ProjectName).xex</ImageXexOutput>
     <IncludePath>$(ProjectDir)\Xbox\Sentient\Include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)X360_$(Configuration)\</OutDir>
     <IntDir>X360_$(Configuration)\</IntDir>
@@ -1145,7 +1145,7 @@ xcopy /q /y /i /s /e $(ProjectDir)DurangoMedia\CU  $(LayoutDir)Image\Loose\CU</C
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <PrecompiledHeaderOutputFile>$(OutDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PreprocessorDefinitions>_TU_BUILD;_FINAL_BUILD;_ITERATOR_DEBUG_LEVEL=0;NDEBUG;_XBOX;_CONTENT_PACKAGE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_FINAL_BUILD;_ITERATOR_DEBUG_LEVEL=0;NDEBUG;_XBOX;_CONTENT_PACKAGE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <CallAttributedProfiling>Disabled</CallAttributedProfiling>
