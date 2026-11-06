@@ -264,6 +264,8 @@ void Buggy::tick()
 		}
 	}
 
+	//Too expensive on Xbox 360, causes lag.
+#ifndef _XBOX
 	int minX = (int)floor(bb->x0);
 	int maxX = (int)ceil(bb->x1);
 	int minY = (int)floor(bb->y0);
@@ -283,6 +285,7 @@ void Buggy::tick()
 			}
 		}
 	}
+#endif
 
 	if (rider.lock() != NULL)
 	{

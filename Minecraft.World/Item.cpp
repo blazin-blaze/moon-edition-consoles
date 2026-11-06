@@ -322,6 +322,12 @@ Item* Item::sapphireHoe = NULL;
 
 Item* Item::rocketCake = NULL;
 
+Item* Item::oxygenVent = NULL;
+Item* Item::oxygenFan = NULL;
+Item* Item::oxygenConcentrator = NULL;
+Item* Item::regulatorBlueprint = NULL;
+Item* Item::regulator = NULL;
+
 void Item::staticCtor()
 {
 	Item::sword_wood		= ( new WeaponItem(12, _Tier::WOOD) )		->setBaseItemTypeAndMaterial(eBaseItemType_sword,	eMaterial_wood)		->setIconName(L"swordWood")->setDescriptionId(IDS_ITEM_SWORD_WOOD)->setUseDescriptionId(IDS_DESC_SWORD);
@@ -668,7 +674,7 @@ void Item::staticCtor()
 	Item::poutine = (new BowlFoodItem(184, 10))->setBaseItemTypeAndMaterial(eBaseItemType_artisan, eMaterial_artisan)->setIconName(L"poutine")->setDescriptionId(IDS_ITEM_POUTINE)->setUseDescriptionId(IDS_DESC_POUTINE)->setMaxStackSize(1);
 	Item::frequencyModule = (new Item(185))->setIconName(L"frequencyModule")->setDescriptionId(IDS_ITEM_FREQUENCY_MODULE)->setUseDescriptionId(IDS_DESC_FREQUENCY_MODULE)->setMaxStackSize(1);
 	Item::oxygenMask = (new Item(186))->setIconName(L"oxygenMask")->setDescriptionId(IDS_ITEM_OXYGEN_MASK)->setUseDescriptionId(IDS_DESC_OXYGEN_MASK)->setMaxStackSize(1);
-	Item::oxygenGear = (new Item(187))->setIconName(L"oxygenGear")->setDescriptionId(IDS_ITEM_OXYGEN_GEAR)->setUseDescriptionId(IDS_DESC_OXYGEN_GEAR)->setMaxStackSize(1);
+	Item::oxygenGear = (new Item(187))->setBaseItemTypeAndMaterial(eBaseItemType_oxygenGear, eMaterial_oxygenGear)->setIconName(L"oxygenGear")->setDescriptionId(IDS_ITEM_OXYGEN_GEAR)->setUseDescriptionId(IDS_DESC_OXYGEN_GEAR)->setMaxStackSize(1);
 	Item::oxygenTank = (new Item(188))->setIconName(L"oxygenTank")->setDescriptionId(IDS_ITEM_OXYGEN_TANK)->setUseDescriptionId(IDS_DESC_OXYGEN_TANK)->setMaxDamage(1200)->setMaxStackSize(1);
 
 	Item::copperIngot = (new Item(189))->setBaseItemTypeAndMaterial(eBaseItemType_treasure, eMaterial_copper)->setIconName(L"copperIngot")->setDescriptionId(IDS_ITEM_COPPER_INGOT)->setUseDescriptionId(IDS_DESC_SPACE_RECIPE);
@@ -713,6 +719,12 @@ void Item::staticCtor()
 	Item::sapphireHoe = (new HoeItem(224, _Tier::SAPPHIRE))->setBaseItemTypeAndMaterial(eBaseItemType_hoe, eMaterial_sapphire)->setIconName(L"sapphireHoe")->setDescriptionId(IDS_ITEM_HOE_SAPPHIRE)->setUseDescriptionId(IDS_DESC_HOE);
 
 	Item::rocketCake = (new RocketItem(225, true))->setIconName(L"rocket_cake_item")->setDescriptionId(IDS_ITEM_ROCKET)->setUseDescriptionId(IDS_DESC_ROCKET)->setMaxStackSize(1);
+	Item::oxygenVent = (new Item(226))->setIconName(L"oxygenVent")->setDescriptionId(IDS_ITEM_OXYGEN_VENT)->setUseDescriptionId(IDS_DESC_OXYGEN_RECIPES);
+	Item::oxygenFan = (new Item(227))->setIconName(L"oxygenFan")->setDescriptionId(IDS_ITEM_OXYGEN_FAN)->setUseDescriptionId(IDS_DESC_OXYGEN_RECIPES);
+	Item::oxygenConcentrator = (new Item(228))->setIconName(L"oxygenConcentrator")->setDescriptionId(IDS_ITEM_OXYGEN_CONCENTRATOR)->setUseDescriptionId(IDS_DESC_OXYGEN_RECIPES)->setMaxStackSize(1);
+	Item::regulatorBlueprint = (new Item(229))->setIconName(L"regulatorBlueprint")->setDescriptionId(IDS_ITEM_REGULATOR_BLUEPRINT)->setUseDescriptionId(IDS_DESC_REGULATOR_BLUEPRINT)->setMaxStackSize(1);
+	regulatorBlueprint->setCraftingRemainingItem(Item::regulatorBlueprint);
+	Item::regulator = (new Item(230))->setBaseItemTypeAndMaterial(eBaseItemType_oxygenGear, eMaterial_oxygenGear)->setIconName(L"regulator")->setDescriptionId(IDS_ITEM_REGULATOR)->setUseDescriptionId(IDS_DESC_REGULATOR)->setMaxStackSize(1);
 }
 
 

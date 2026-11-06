@@ -175,7 +175,7 @@ shared_ptr<ItemInstance> InventoryMenu::quickMoveStack(shared_ptr<Player> player
 					return nullptr;
 				}
 			}
-			else if (stack->id == Item::oxygenGear_Id && (!OxygenGearSlot->hasItem()))
+			else if ((stack->id == Item::oxygenGear_Id || stack->id == Item::regulator_Id) && (!OxygenGearSlot->hasItem()))
 			{
 				if (!moveItemStackTo(stack, SPACE_SLOT_START + 2, SPACE_SLOT_START + 3, false))
 				{
@@ -240,7 +240,7 @@ shared_ptr<ItemInstance> InventoryMenu::quickMoveStack(shared_ptr<Player> player
 					return nullptr;
 				}
 			}
-			else if (stack->id == Item::oxygenGear_Id && (!OxygenGearSlot->hasItem()))
+			else if ((stack->id == Item::oxygenGear_Id || stack->id == Item::regulator_Id) && (!OxygenGearSlot->hasItem()))
 			{
 				if (!moveItemStackTo(stack, SPACE_SLOT_START + 2, SPACE_SLOT_START + 3, false))
 				{

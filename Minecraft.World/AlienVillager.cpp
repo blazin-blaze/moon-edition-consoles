@@ -436,6 +436,7 @@ void AlienVillager::addOffers(int addCount)
 
 		addItemForPurchase(newOffers, Item::moonDungeonKey_Id, random, getRecipeChance(.7f));
 		addItemForPurchase(newOffers, Item::buggyBlueprint_Id, random, getRecipeChance(.5f));
+		addItemForPurchase(newOffers, Item::regulatorBlueprint_Id, random, getRecipeChance(.5f));
 		addItemForPurchase(newOffers, Item::titaniumSword_Id, random, getRecipeChance(.1f));
 		addItemForPurchase(newOffers, Item::titaniumHatchet_Id, random, getRecipeChance(.1f));
 		addItemForPurchase(newOffers, Item::titaniumPickaxe_Id, random, getRecipeChance(.1f));
@@ -456,6 +457,7 @@ void AlienVillager::addOffers(int addCount)
 		addItemForPurchase(newOffers, Item::yellowDust_Id, random, getRecipeChance(.3f));
 		addItemForPurchase(newOffers, Item::moonDungeonKey_Id, random, getRecipeChance(.7f));
 		addItemForPurchase(newOffers, Item::buggyBlueprint_Id, random, getRecipeChance(.5f));
+		addItemForPurchase(newOffers, Item::regulatorBlueprint_Id, random, getRecipeChance(.5f));
 		addItemForPurchase(newOffers, Item::fuelCanister_Id, random, getRecipeChance(.3f));
 		addItemForPurchase(newOffers, Item::oxygenGear_Id, random, getRecipeChance(.2f));
 		addItemForPurchase(newOffers, Item::oxygenMask_Id, random, getRecipeChance(.2f));
@@ -543,6 +545,7 @@ void AlienVillager::staticCtor()
 	MIN_MAX_PRICES[Item::noseCone_Id] = pair<int, int>(20, 30);
 	MIN_MAX_PRICES[Item::fuelCanister_Id] = pair<int, int>(18, 28);
 	MIN_MAX_PRICES[Item::buggyBlueprint_Id] = pair<int, int>(38, 45);
+	MIN_MAX_PRICES[Item::regulatorBlueprint_Id] = pair<int, int>(38, 45);
 	MIN_MAX_PRICES[Item::compressedHeavyDuty_Id] = pair<int, int>(7, 13);
 }
 

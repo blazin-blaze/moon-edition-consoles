@@ -704,6 +704,15 @@ bool Inventory::getFrequencyModule()
 	return false;
 }
 
+bool Inventory::getRegulator()
+{
+	shared_ptr<ItemInstance> regulator = space[1];
+	if (regulator != NULL && regulator->getItem()->id == Item::regulator_Id) {
+		return true;
+	}
+	return false;
+}
+
 void Inventory::depleteOxygen(float damage)
 {
 	if (space[0] == NULL || space[0]->getItem() == NULL) return;

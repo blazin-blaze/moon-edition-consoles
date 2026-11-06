@@ -92,6 +92,7 @@ public:
 	bool getOxygenMask();
 	int getOxygenDamage();
 	bool getFrequencyModule();
+	bool getRegulator();
 	int getArmorValue();
 	void hurtArmor(float dmg);
 	void depleteOxygen(float dmg);

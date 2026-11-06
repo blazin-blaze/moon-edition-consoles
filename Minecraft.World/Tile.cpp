@@ -884,8 +884,8 @@ void Tile::staticCtor()
 	Tile::moonStone = (new MoonStoneTile(176))->setDestroyTime(1.5f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"moonStone")->setDescriptionId(IDS_TILE_MOON_STONE)->setUseDescriptionId(IDS_DESC_MOON_STONE);
 
 	Tile::cheeseOre = (new OreTile(177, Material::cheese))->setDestroyTime(1.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"cheeseOre")->setDescriptionId(IDS_TILE_ORE_CHEESE)->setUseDescriptionId(IDS_DESC_ORE_CHEESE);
-	Tile::sapphireOre = (new OreTile(178))->setDestroyTime(3.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"sapphireOre")->setDescriptionId(IDS_TILE_ORE_SAPPHIRE)->setUseDescriptionId(IDS_DESC_ORE_SAPPHIRE);
-	Tile::titaniumOre = (new Tile(179, Material::stone))->setDestroyTime(3.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"titaniumOre")->setDescriptionId(IDS_TILE_ORE_TITANIUM)->setUseDescriptionId(IDS_DESC_ORE_TITANIUM);
+	Tile::titaniumOre = (new Tile(178, Material::stone))->setDestroyTime(3.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"titaniumOre")->setDescriptionId(IDS_TILE_ORE_TITANIUM)->setUseDescriptionId(IDS_DESC_ORE_TITANIUM);
+	Tile::sapphireOre = (new OreTile(179))->setDestroyTime(3.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"sapphireOre")->setDescriptionId(IDS_TILE_ORE_SAPPHIRE)->setUseDescriptionId(IDS_DESC_ORE_SAPPHIRE);
 	Tile::moonQuartzOre = (new OreTile(180))->setDestroyTime(1.5f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"moonQuartzOre")->setDescriptionId(IDS_TILE_ORE_MOON_QUARTZ)->setUseDescriptionId(IDS_DESC_ORE_MOON_QUARTZ);
 
 	Tile::copperOre = (new Tile(181, Material::stone))->setDestroyTime(3.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"copperOre")->setDescriptionId(IDS_TILE_ORE_COPPER)->setUseDescriptionId(IDS_DESC_ORE_COPPER);

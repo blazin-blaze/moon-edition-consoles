@@ -185,6 +185,15 @@ SpaceRecipes::SpaceRecipes()
 		L'S', Item::compressedSteel, L'I', Item::compressedIron, L'P', Tile::thinGlass, L'T', Item::tinCanister,
 		L'A');
 
+	addShapedRecipy(new ItemInstance(Item::regulator, 1), //
+		L"ssscicicig",
+		L" T ",
+		L" G ",
+		L" B ",
+
+		L'T', Item::titaniumIngot, L'G', Item::oxygenGear, L'B', Item::regulatorBlueprint, 
+		L'A');
+
 	addShapedRecipy(new ItemInstance(Item::oxygenTank, 1), //
 		L"sssciczcig",
 		L"RRR",
@@ -192,6 +201,15 @@ SpaceRecipes::SpaceRecipes()
 		L"SSS",
 
 		L'S', Item::compressedSteel, L'R', new ItemInstance(Tile::wool, 1, 14), L'T', Item::tinCanister,
+		L'A');
+
+	addShapedRecipy(new ItemInstance(Tile::oxygenator), //
+		L"ssscicicictg",
+		L"VVV", //
+		L"IFI", //
+		L"ICI", //
+
+		L'F', Item::oxygenFan, L'C', Item::oxygenConcentrator, L'V', Item::oxygenVent, L'I', Tile::ironBlock,
 		L'A');
 
 	addShapedRecipy(new ItemInstance(Item::basicWafer, 3), //
@@ -266,6 +284,30 @@ SpaceRecipes::SpaceRecipes()
 		L" C ",
 
 		L'O', Item::oilBucket, L'T', Tile::redstoneTorch_on, L'S', Item::compressedSteel, L'C', Item::tinCanister,
+		L'M');
+	addShapedRecipy(new ItemInstance(Item::oxygenVent, 1), //
+		L"ssscicig",
+		L"TT ",
+		L"TS ",
+		L"   ",
+
+		L'T', Item::compressedTin, L'S', Item::compressedSteel, 
+		L'M');
+	addShapedRecipy(new ItemInstance(Item::oxygenFan, 1), //
+		L"ssscicicig",
+		L"S S",
+		L" W ",
+		L"SRS",
+
+		L'S', Item::compressedSteel, L'W', Item::basicWafer, L'R', Item::redStone,
+		L'M');
+	addShapedRecipy(new ItemInstance(Item::oxygenConcentrator, 1), //
+		L"ssscicicicig",
+		L"STS",
+		L"TCT",
+		L"SVS",
+
+		L'S', Item::compressedSteel, L'T', Item::compressedTin, L'C', Item::tinCanister, L'V', Item::oxygenVent,
 		L'M');
 
 	// Sort so the largest recipes get checked first!

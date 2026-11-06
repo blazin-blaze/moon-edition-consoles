@@ -33,6 +33,7 @@
 #include "GenericStats.h"
 #include "ItemEntity.h"
 #include "Dimension.h"
+#include "..\Minecraft.Client\ServerPlayer.h"
 
 const double LivingEntity::MIN_MOVEMENT_DISTANCE = 0.005;
 
@@ -203,7 +204,12 @@ void LivingEntity::baseTick()
 
 	if (isAlive() && isUnderLiquid(Material::water))
 	{
-		if(!isWaterMob() && !hasEffect(MobEffect::waterBreathing->id) && !isInvulnerable) 
+		bool hasRegulator = false;
+		shared_ptr<Player> player = dynamic_pointer_cast<Player>(shared_from_this());
+		if(player != NULL) {
+			hasRegulator = player->inventory->getRegulator() && player->inventory->getOxygenSetup() && player->inventory->getOxygenDamage() < 1199;
+		}
+		if(!isWaterMob() && !hasEffect(MobEffect::waterBreathing->id) && !isInvulnerable && !hasRegulator) 
 		{
 			setAirSupply(decreaseAirSupply(getAirSupply()));
 			if (getAirSupply() == -20)

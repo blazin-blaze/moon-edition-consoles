@@ -99,6 +99,7 @@ public:
 		eMaterial_aluminium,
 		eMaterial_can,
 		eMaterial_steel,
+		eMaterial_oxygenGear,
 	}
 	eMaterial;
 
@@ -154,6 +155,7 @@ public:
 		eBaseItemType_cannedFoods,
 		eBaseItemType_oxygenIngr,
 		eBaseItemType_steel,
+		eBaseItemType_oxygenGear,
 		eBaseItemType_MAXTYPES,
 	}
 	eBaseItemType;
@@ -496,6 +498,12 @@ public:
 	static Item* sapphireHoe;
 	static Item* rocketCake;
 
+	static Item* oxygenVent;
+	static Item* oxygenFan;
+	static Item* oxygenConcentrator;
+	static Item* regulatorBlueprint;
+	static Item* regulator;
+
 	static const int shovel_iron_Id			= 256;
 	static const int pickAxe_iron_Id		= 257;
 	static const int hatchet_iron_Id		= 258;
@@ -768,6 +776,11 @@ public:
 	static const int sapphireHoe_Id = 480;
 
 	static const int rocketCake_Id = 481;
+	static const int oxygenVent_Id = 482;
+	static const int oxygenFan_Id = 483;
+	static const int oxygenConcentrator_Id = 484;
+	static const int regulatorBlueprint_Id = 485;
+	static const int regulator_Id = 486;
 
 public:
 	const int id;

@@ -625,11 +625,13 @@ void PreStitchedTextureMap::loadUVs()
 		ADD_ICON(17, 0, L"sapphirePickaxe")
 		ADD_ICON(17, 1, L"sapphireHatchet")
 		ADD_ICON(17, 2, L"sapphireHoe")
-		//ADD_ICON(17, 3, L"oxygenVent")
-		//ADD_ICON(17, 4, L"oxygenFan")
-		//ADD_ICON(17, 5, L"oxygenConcentrator")
+		ADD_ICON(17, 3, L"oxygenFan")
+		ADD_ICON(17, 4, L"oxygenVent")
+		ADD_ICON(17, 5, L"oxygenConcentrator")
 		ADD_ICON(17, 6, L"greenString")
 		ADD_ICON(17, 7,	L"rocket_cake_item")
+		ADD_ICON(17, 8,	L"regulatorBlueprint")
+		ADD_ICON(17, 9,	L"regulator")
 
 		// Special cases
 		ClockTexture *dataClock = new ClockTexture();

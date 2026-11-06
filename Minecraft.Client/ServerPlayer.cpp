@@ -304,8 +304,10 @@ void ServerPlayer::tick()
 		}
 	}
 
-	if (!level->isClientSide && tickCount % 20 == 0 && level->dimension->id == 2) {
-		if (inventory->getOxygenSetup()) {
+	if (!level->isClientSide && tickCount % 20 == 0 && isAlive() && inventory->getOxygenSetup()) {
+		if(inventory->getRegulator() && isUnderLiquid(Material::water)) {
+			inventory->depleteOxygen(1.0f);
+		}else if(level->dimension->id == 2) {
 			inventory->depleteOxygen(1.0f);
 		}
 	}

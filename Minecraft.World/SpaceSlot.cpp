@@ -33,7 +33,7 @@ bool SpaceSlot::mayPlace(shared_ptr<ItemInstance> item)
 	}else if (item->getItem()->id == Item::oxygenMask_Id)
 	{
 		return slotNum == 1;
-	}else if (item->getItem()->id == Item::oxygenGear_Id)
+	}else if (item->getItem()->id == Item::oxygenGear_Id || item->getItem()->id == Item::regulator_Id)
 	{
 		return slotNum == 2;
 	}else if (item->getItem()->id == Item::oxygenTank_Id)
