@@ -404,6 +404,8 @@ public:
 	static const int spaceWorkbench_Id = 205;
 	static const int oxygenator_Id = 206;
 
+	static const int moonStoneStairs_Id = 207;
+
 	static Tile *stone;
 	static GrassTile *grass;
 	static Tile *dirt;
@@ -617,6 +619,8 @@ public:
 	static Tile *calmOil;
 	static Tile *spaceWorkbench;
 	static Tile *oxygenator;
+
+	static Tile *moonStoneStairs;
 
 	static void staticCtor();
 

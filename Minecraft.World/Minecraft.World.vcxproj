@@ -1694,6 +1694,7 @@
     <ClInclude Include="MoonMineShaftStart.h" />
     <ClInclude Include="MoonMonsterRoomFeature.h" />
     <ClInclude Include="MoonStoneTile.h" />
+    <ClInclude Include="MoonTurfTile.h" />
     <ClInclude Include="MultiEntityMobPart.h" />
     <ClInclude Include="BottleItem.h" />
     <ClInclude Include="BoundingBox.h" />
@@ -2106,10 +2107,7 @@
     <ClInclude Include="x64headers\xsocialpost.h" />
     <ClInclude Include="x64headers\xuiapp.h" />
     <ClInclude Include="x64headers\xuiresource.h" />
-    <ClInclude Include="XNotifyPacket.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Xbox 360'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="XNotifyPacket.h" />
     <ClInclude Include="XZPacket.h" />
     <ClInclude Include="ShoreLayer.h" />
     <ClInclude Include="SmallFireball.h" />
@@ -2809,6 +2807,7 @@
     <ClCompile Include="MoonMineShaftStart.cpp" />
     <ClCompile Include="MoonMonsterRoomFeature.cpp" />
     <ClCompile Include="MoonStoneTile.cpp" />
+    <ClCompile Include="MoonTurfTile.cpp" />
     <ClCompile Include="MultiEntityMobPart.cpp" />
     <ClCompile Include="BottleItem.cpp" />
     <ClCompile Include="BoundingBox.cpp" />
@@ -3229,10 +3228,7 @@
     </ClCompile>
     <ClCompile Include="WoodTile.cpp" />
     <ClCompile Include="WoolCarpetTile.cpp" />
-    <ClCompile Include="XNotifyPacket.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Xbox 360'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="XNotifyPacket.cpp" />
     <ClCompile Include="XZPacket.cpp" />
     <ClCompile Include="ShoreLayer.cpp" />
     <ClCompile Include="SparseLightStorage.cpp" />

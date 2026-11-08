@@ -694,6 +694,18 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 	__int64 zScale = pprandom->nextLong() / 2 * 2 + 1;
 	pprandom->setSeed(((xt * xScale) + (zt * zScale)) ^ level->getSeed());
 
+	PIXBeginNamedEvent(0,"Craters");
+	if (random->nextInt(2) == 1)
+	{
+		int x = xo + pprandom->nextInt(16) + 8;
+		int y = pprandom->nextInt(Level::genDepth);
+		int z = zo + pprandom->nextInt(16) + 8;
+
+		CraterFeature crater;
+		crater.place(level, pprandom, x, y, z);
+	}
+	PIXEndNamedEvent();
+
 	bool hasVillage = false;
 
 	PIXBeginNamedEvent(0, "Structure postprocessing");
@@ -703,18 +715,6 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 		hasVillage = villageFeature->postProcess(level, pprandom, xt, zt);
 		//strongholdFeature->postProcess(level, pprandom, xt, zt);
 		//scatteredFeature->postProcess(level, random, xt, zt);
-	}
-	PIXEndNamedEvent();
-
-	PIXBeginNamedEvent(0,"Craters");
-	if (!hasVillage && random->nextInt(2) == 1)
-	{
-		int x = xo + pprandom->nextInt(16) + 8;
-		int y = pprandom->nextInt(Level::genDepth);
-		int z = zo + pprandom->nextInt(16) + 8;
-
-		CraterFeature crater;
-		crater.place(level, pprandom, x, y, z);
 	}
 	PIXEndNamedEvent();
 

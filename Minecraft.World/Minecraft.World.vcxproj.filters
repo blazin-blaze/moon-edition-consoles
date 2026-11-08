@@ -3284,9 +3284,6 @@
     <ClInclude Include="SpaceRecipes.h">
       <Filter>net\minecraft\world\item\crafting</Filter>
     </ClInclude>
-    <ClInclude Include="XNotifyPacket.h">
-      <Filter>net\minecraft\network\packet</Filter>
-    </ClInclude>
     <ClInclude Include="LevelRocketSoundMovePacket.h">
       <Filter>net\minecraft\network\packet</Filter>
     </ClInclude>
@@ -3307,6 +3304,12 @@
     </ClInclude>
     <ClInclude Include="CraterFeature.h">
       <Filter>net\minecraft\world\level\levelgen\feature</Filter>
+    </ClInclude>
+    <ClInclude Include="MoonTurfTile.h">
+      <Filter>net\minecraft\world\level\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="XNotifyPacket.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -5821,9 +5824,6 @@
     <ClCompile Include="SpaceCraftItemPacket.cpp">
       <Filter>net\minecraft\network\packet</Filter>
     </ClCompile>
-    <ClCompile Include="XNotifyPacket.cpp">
-      <Filter>net\minecraft\network\packet</Filter>
-    </ClCompile>
     <ClCompile Include="LevelRocketSoundMovePacket.cpp">
       <Filter>net\minecraft\network\packet</Filter>
     </ClCompile>
@@ -5844,6 +5844,12 @@
     </ClCompile>
     <ClCompile Include="CraterFeature.cpp">
       <Filter>net\minecraft\world\level\levelgen\feature</Filter>
+    </ClCompile>
+    <ClCompile Include="MoonTurfTile.cpp">
+      <Filter>net\minecraft\world\level\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="XNotifyPacket.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

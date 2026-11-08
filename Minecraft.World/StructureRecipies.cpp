@@ -108,6 +108,14 @@ void StructureRecipies::addRecipes(Recipes *r)
 		L'#', Tile::stone,
 		L'S');
 
+	r->addShapedRecipy(new ItemInstance(Tile::moonDungeonBricks, 4), //
+		L"ssctg",
+		L"##", //
+		L"##", //
+
+		L'#', Tile::moonStone,
+		L'S');
+
 	// 4J Stu - Move this into "Recipes" to change the order things are displayed on the crafting menu
 	//r->addShapedRecipy(new ItemInstance(Tile::ironFence, 16), //
 	//	L"sscig",

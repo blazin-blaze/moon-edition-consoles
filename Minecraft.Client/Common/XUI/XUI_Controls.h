@@ -13,6 +13,7 @@
 #include "XUI_Ctrl_FireProgress.h"
 #include "XUI_Ctrl_LoadingProgress.h"
 #include "XUI_Ctrl_MinecraftPlayer.h"
+#include "XUI_Ctrl_MinecraftHorse.h"
 #include "XUI_Ctrl_MinecraftSkinPreview.h"
 #include "XUI_Ctrl_MinecraftSlot.h"
 #include "XUI_Ctrl_MobEffect.h"

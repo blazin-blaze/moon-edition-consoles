@@ -260,6 +260,8 @@ Tile *Tile::calmOil = NULL;
 Tile *Tile::spaceWorkbench = NULL;
 Tile *Tile::oxygenator = NULL;
 
+Tile *Tile::moonStoneStairs = NULL;
+
 DWORD Tile::tlsIdxShape = TlsAlloc();
 
 Tile::ThreadStorage::ThreadStorage()
@@ -879,7 +881,7 @@ void Tile::staticCtor()
 	Tile::coalBlock->setDescriptionId(IDS_TILE_COAL);
 	Tile::coalBlock->setUseDescriptionId(IDS_DESC_COAL_BLOCK);
 
-	Tile::moonTurf = (new Tile(174, Material::moonTurf))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonTurf")->setDescriptionId(IDS_TILE_MOON_TURF)->setUseDescriptionId(IDS_DESC_MOON_TURF);
+	Tile::moonTurf = (new MoonTurfTile(174))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonTurf")->setDescriptionId(IDS_TILE_MOON_TURF)->setUseDescriptionId(IDS_DESC_MOON_TURF);
 	Tile::moonDirt = (new Tile(175, Material::moonDirt))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonDirt")->setDescriptionId(IDS_TILE_MOON_DIRT)->setUseDescriptionId(IDS_DESC_MOON_DIRT);
 	Tile::moonStone = (new MoonStoneTile(176))->setDestroyTime(1.5f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"moonStone")->setDescriptionId(IDS_TILE_MOON_STONE)->setUseDescriptionId(IDS_DESC_MOON_STONE);
 
@@ -917,6 +919,7 @@ void Tile::staticCtor()
 	Tile::calmOil = (new LiquidTileStatic(204, Material::oil))->setDestroyTime(100.0f)->setLightBlock(3)->setIconName(L"oil_still")->setDescriptionId(IDS_TILE_OIL)->setNotCollectStatistics()->sendTileData()->setUseDescriptionId(IDS_DESC_OIL);
 	Tile::spaceWorkbench = (new WorkbenchTile(205, Material::metal))->setBaseItemTypeAndMaterial(Item::eBaseItemType_device, Item::eMaterial_iron)->setDestroyTime(5.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_METAL)->setIconName(L"spaceWorkbench")->setDescriptionId(IDS_TILE_SPACE_WORKBENCH)->setUseDescriptionId(IDS_DESC_SPACE_WORKBENCH);
 	Tile::oxygenator = (new OxygenatorTile(206))->setBaseItemTypeAndMaterial(Item::eBaseItemType_device, Item::eMaterial_iron)->setDestroyTime(5.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_METAL)->setIconName(L"oxygenator")->setDescriptionId(IDS_TILE_OXYGENATOR)->setUseDescriptionId(IDS_DESC_OXYGENATOR);
+	Tile::moonStoneStairs =(new StairTile(207, Tile::moonDungeonBricks,0))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsStone")->setDescriptionId(IDS_TILE_MOON_STONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
 
 	// Special cases for certain items since they can have different icons
 	Item::items[wool_Id] = ( new WoolTileItem(Tile::wool_Id- 256) );

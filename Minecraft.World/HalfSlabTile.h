@@ -6,8 +6,8 @@
 class HalfSlabTile : public Tile 
 {
 public:
-	static const int TYPE_MASK = 7;
-	static const int TOP_SLOT_BIT = 8;
+	static const int TYPE_MASK = 15;
+	static const int TOP_SLOT_BIT = 16;
 
 protected:
 	bool fullSize;

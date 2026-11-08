@@ -186,12 +186,12 @@ SpaceRecipes::SpaceRecipes()
 		L'A');
 
 	addShapedRecipy(new ItemInstance(Item::regulator, 1), //
-		L"ssscicicig",
-		L" T ",
-		L" G ",
+		L"ssscicicicig",
+		L"TTT",
+		L"SGS",
 		L" B ",
 
-		L'T', Item::titaniumIngot, L'G', Item::oxygenGear, L'B', Item::regulatorBlueprint, 
+		L'T', Item::titaniumIngot, L'G', Item::oxygenGear, L'B', Item::regulatorBlueprint, 'S', Item::sapphire,
 		L'A');
 
 	addShapedRecipy(new ItemInstance(Item::oxygenTank, 1), //

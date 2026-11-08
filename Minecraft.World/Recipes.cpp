@@ -261,7 +261,16 @@ Recipes::Recipes()
 		L"## ", //
 		L"###", //
 
-		L'#', Tile::cobblestone,
+		L'#', Tile::stoneBrick,
+		L'S');
+
+	addShapedRecipy(new ItemInstance(Tile::moonStoneStairs, 4), //
+		L"sssctg",
+		L"#  ", //
+		L"## ", //
+		L"###", //
+
+		L'#', Tile::moonDungeonBricks,
 		L'S');
 
 	addShapedRecipy(new ItemInstance(Tile::stairs_netherBricks, 4), //
@@ -405,6 +414,13 @@ Recipes::Recipes()
 		L"###", //
 
 		L'#', Tile::stoneBrick,
+		L'S');
+
+	addShapedRecipy(new ItemInstance(Tile::stoneSlabHalf, 6, StoneSlabTile::MOON_STONE_SLAB), //
+		L"sctg",
+		L"###", //
+
+		L'#', Tile::moonDungeonBricks,
 		L'S');
 
 	addShapedRecipy(new ItemInstance(Tile::stoneSlabHalf, 6, StoneSlabTile::NETHERBRICK_SLAB), //

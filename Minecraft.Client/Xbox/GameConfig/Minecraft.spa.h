@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////
 //
-// C:\Work\4J\Mojang\Minecraft\Minecraft360-dev\Minecraft.Client\Xbox\GameConfig\Minecraft.spa.h
+// C:\Test\Minecraft.spa.h
 //
-// Auto-generated on Thursday, 10 May 2012 at 21:23:22
+// Auto-generated on Sunday, 08 November 2026 at 04:12:26
 // Xbox LIVE Game Config project version 1.0.173.0
 // SPA Compiler version 1.0.0.0
 //
@@ -47,10 +47,6 @@ extern "C" {
 #define CONTEXT_GAME_STATE_NETHER                   7
 #define CONTEXT_GAME_STATE_CD                       8
 #define CONTEXT_GAME_STATE_MAP                      9
-#define CONTEXT_GAME_STATE_ENCHANTING				5 //TODO 10
-#define CONTEXT_GAME_STATE_BREWING					5 //TODO 11
-#define CONTEXT_GAME_STATE_ANVIL					6 //TODO 12
-#define CONTEXT_GAME_STATE_TRADING					0 //TODO 13
 
 // Values for X_CONTEXT_PRESENCE
 

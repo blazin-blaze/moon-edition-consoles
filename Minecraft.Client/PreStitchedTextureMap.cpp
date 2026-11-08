@@ -1049,8 +1049,8 @@ void PreStitchedTextureMap::loadUVs()
 		ADD_ICON(20,	11,	L"moonCobblestone");
 		ADD_ICON(20,	12,	L"titaniumBlock");
 		ADD_ICON(20,	13,	L"moonDungeonBricks");
-		ADD_ICON(20,	14,	L"moonDungeonCrackedBricks");
-		ADD_ICON(20,	15,	L"moonDungeonMossyBricks");
+		ADD_ICON(20,	14,	L"moonDungeonMossyBricks");
+		ADD_ICON(20,	15,	L"moonDungeonCrackedBricks");
 
 		ADD_ICON(21,	0,	L"glowstoneTorch");
 		ADD_ICON(21,	1,	L"deadTorch");

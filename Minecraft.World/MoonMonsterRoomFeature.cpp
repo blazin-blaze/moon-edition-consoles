@@ -9,17 +9,17 @@
 
 WeighedTreasure* MoonMonsterRoomFeature::monsterRoomTreasure[MoonMonsterRoomFeature::TREASURE_ITEMS_COUNT] =
 {
-		new WeighedTreasure(Item::sapphire_Id, 0, 1, 12, 7),
-		new WeighedTreasure(Item::titaniumIngot_Id, 0, 1, 2, 1),
+		new WeighedTreasure(Item::sapphire_Id, 0, 1, 12, 10),
+		new WeighedTreasure(Item::titaniumIngot_Id, 0, 1, 2, 5),
 		new WeighedTreasure(Item::cheese_Id, 0, 1, 15, 10),
 		new WeighedTreasure(Item::netherQuartz_Id, 0, 1, 25, 10),
-		new WeighedTreasure(Item::oxygenTank_Id, 0, 1, 1, 1),
+		new WeighedTreasure(Item::oxygenTank_Id, 0, 1, 1, 5),
 		new WeighedTreasure(Item::cheeseburger_Id, 0, 1, 2, 7),
 		new WeighedTreasure(Item::poutine_Id, 0, 1, 1, 5),
-		new WeighedTreasure(Item::apple_gold_Id, 0, 1, 1, 7),
-		new WeighedTreasure(Item::apple_gold_Id, 1, 1, 1, 5),
+		new WeighedTreasure(Item::apple_gold_Id, 0, 1, 1, 10),
+		new WeighedTreasure(Item::apple_gold_Id, 1, 1, 1, 7),
 		new WeighedTreasure(Item::nameTag_Id, 0, 1, 1, 7),
-		new WeighedTreasure(Item::diamond_Id, 0, 1, 10, 7),
+		new WeighedTreasure(Item::diamond_Id, 0, 1, 10, 10),
 		new WeighedTreasure(Item::sword_diamond_Id, 0, 1, 1, 3),
 		new WeighedTreasure(Item::pickAxe_diamond_Id, 0, 1, 1, 3),
 		new WeighedTreasure(Item::hatchet_diamond_Id, 0, 1, 1, 3),
@@ -90,7 +90,7 @@ bool MoonMonsterRoomFeature::place(Level* level, Random* random, int x, int y, i
 						if (random->nextInt(8) % 4 == 0)
 						{
 							level->setTileAndData(xx, yy, zz, Tile::moonDungeonMossyBricks_Id, 0, Tile::UPDATE_CLIENTS);
-						}else if (random->nextInt(4) % 2 != 0)
+						}else if (random->nextInt(8) % 4 == 0)
 						{
 							level->setTileAndData(xx, yy, zz, Tile::moonDungeonCrackedBricks_Id, 0, Tile::UPDATE_CLIENTS);
 						}
@@ -129,7 +129,7 @@ bool MoonMonsterRoomFeature::place(Level* level, Random* random, int x, int y, i
 			WeighedTreasureArray wrapperArray(monsterRoomTreasure, TREASURE_ITEMS_COUNT);
 			WeighedTreasureArray treasure = WeighedTreasure::addToTreasure(wrapperArray, Item::enchantedBook->createForRandomTreasure(random));
 			shared_ptr<ChestTileEntity> chest = dynamic_pointer_cast<ChestTileEntity>(level->getTileEntity(xc, yc, zc));
-			if (chest != nullptr)
+			if (chest != NULL)
 			{
 				WeighedTreasure::addChestItems(random, treasure, chest, 8);
 			}
@@ -141,7 +141,7 @@ bool MoonMonsterRoomFeature::place(Level* level, Random* random, int x, int y, i
 
 	level->setTileAndData(x, y, z, Tile::mobSpawner_Id, 0, Tile::UPDATE_CLIENTS);
 	shared_ptr<MobSpawnerTileEntity> entity = dynamic_pointer_cast<MobSpawnerTileEntity>(level->getTileEntity(x, y, z));
-	if (entity != nullptr)
+	if (entity != NULL)
 	{
 		entity->getSpawner()->setEntityId(randomEntityId(random));
 	}

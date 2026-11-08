@@ -1,7 +1,6 @@
 #pragma once
 #include "..\Media\xuiscene_horse.h"
 #include "XUI_Scene_AbstractContainer.h"
-#include "XUI_Ctrl_MinecraftHorse.h"
 #include "XUI_CustomMessages.h"
 #include "..\UI\IUIScene_HorseInventoryMenu.h"
 
@@ -9,6 +8,9 @@ class CXuiSceneHorseInventory : public CXuiSceneAbstractContainer, public IUISce
 {
 public:
 	XUI_IMPLEMENT_CLASS( CXuiSceneHorseInventory, L"CXuiSceneHorseInventory", XUI_CLASS_SCENE )
+
+	//str1k3r - since m_horse is protected we must do this (most likely what 4J did)
+	shared_ptr<EntityHorse> GetHorse() { return m_horse; }
 
 protected:
 	XUI_BEGIN_MSG_MAP()

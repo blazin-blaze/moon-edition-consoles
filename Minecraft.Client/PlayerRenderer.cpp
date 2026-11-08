@@ -640,7 +640,13 @@ void PlayerRenderer::renderSpaceSetup(shared_ptr<LivingEntity> entity, float tim
 
 		humanoidModel->body->translateTo(1 / 16.0f);
 
-		bindTexture(&OXYGEN_SETUP_LOCATION);
+		shared_ptr<Player> player = dynamic_pointer_cast<Player>(entity);
+		if(player != NULL && player->inventory->getRegulator()) {
+			bindTexture(&OXYGEN_SETUP_LOCATION);
+		}else {
+			bindTexture(&OXYGEN_SETUP_LOCATION);
+		}
+		
 		float brightness = SharedConstants::TEXTURE_LIGHTING ? 1 : entity->getBrightness(a);
 		glColor3f(brightness, brightness, brightness);
 		if (entity->getArmor(2)) {

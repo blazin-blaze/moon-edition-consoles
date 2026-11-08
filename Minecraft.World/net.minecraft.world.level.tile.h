@@ -133,3 +133,4 @@
 #include "MoonStoneTile.h"
 #include "TreasureChestTile.h"
 #include "OxygenatorTile.h"
+#include "MoonTurfTile.h"
