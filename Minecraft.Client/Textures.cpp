@@ -86,6 +86,7 @@ wchar_t *Textures::preLoaded[TN_COUNT] =
 	L"terrain/sun",
 	L"armor/power",
 	L"mob/oxygen_setup",
+	L"mob/oxygen_setup_regulator",
 	L"mob/frequency_module",
 
 	// 1.8.2

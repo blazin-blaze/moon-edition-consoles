@@ -261,6 +261,7 @@ Tile *Tile::spaceWorkbench = NULL;
 Tile *Tile::oxygenator = NULL;
 
 Tile *Tile::moonStoneStairs = NULL;
+Tile *Tile::moonCobblestoneStairs = NULL;
 
 DWORD Tile::tlsIdxShape = TlsAlloc();
 
@@ -919,7 +920,8 @@ void Tile::staticCtor()
 	Tile::calmOil = (new LiquidTileStatic(204, Material::oil))->setDestroyTime(100.0f)->setLightBlock(3)->setIconName(L"oil_still")->setDescriptionId(IDS_TILE_OIL)->setNotCollectStatistics()->sendTileData()->setUseDescriptionId(IDS_DESC_OIL);
 	Tile::spaceWorkbench = (new WorkbenchTile(205, Material::metal))->setBaseItemTypeAndMaterial(Item::eBaseItemType_device, Item::eMaterial_iron)->setDestroyTime(5.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_METAL)->setIconName(L"spaceWorkbench")->setDescriptionId(IDS_TILE_SPACE_WORKBENCH)->setUseDescriptionId(IDS_DESC_SPACE_WORKBENCH);
 	Tile::oxygenator = (new OxygenatorTile(206))->setBaseItemTypeAndMaterial(Item::eBaseItemType_device, Item::eMaterial_iron)->setDestroyTime(5.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_METAL)->setIconName(L"oxygenator")->setDescriptionId(IDS_TILE_OXYGENATOR)->setUseDescriptionId(IDS_DESC_OXYGENATOR);
-	Tile::moonStoneStairs =(new StairTile(207, Tile::moonDungeonBricks,0))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsStone")->setDescriptionId(IDS_TILE_MOON_STONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
+	Tile::moonStoneStairs =(new StairTile(207, Tile::moonDungeonBricks,0))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsMoonStone")->setDescriptionId(IDS_TILE_MOON_STONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
+	Tile::moonCobblestoneStairs =(new StairTile(208, Tile::cobblestone,1))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsMoonCobblestone")->setDescriptionId(IDS_TILE_MOON_COBBLESTONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
 
 	// Special cases for certain items since they can have different icons
 	Item::items[wool_Id] = ( new WoolTileItem(Tile::wool_Id- 256) );
@@ -1016,7 +1018,7 @@ void Tile::staticCtor()
 	Item::items[waterLily_Id]			= ( new WaterLilyTileItem(Tile::waterLily_Id - 256));
 	Item::items[pistonBase_Id]			= ( new PistonTileItem(Tile::pistonBase_Id - 256) )->setDescriptionId(IDS_TILE_PISTON_BASE)->setUseDescriptionId(IDS_DESC_PISTON);
 	Item::items[pistonStickyBase_Id]	= ( new PistonTileItem(Tile::pistonStickyBase_Id - 256) )->setDescriptionId(IDS_TILE_PISTON_STICK_BASE)->setUseDescriptionId(IDS_DESC_STICKY_PISTON);
-	Item::items[cobbleWall_Id]			= ( new MultiTextureTileItem(cobbleWall_Id - 256, cobbleWall, (int *)WallTile::COBBLE_NAMES, 2) )->setDescriptionId(IDS_TILE_COBBLESTONE_WALL)->setUseDescriptionId(IDS_DESC_COBBLESTONE_WALL);
+	Item::items[cobbleWall_Id]			= ( new MultiTextureTileItem(cobbleWall_Id - 256, cobbleWall, (int *)WallTile::COBBLE_NAMES, 3) )->setDescriptionId(IDS_TILE_COBBLESTONE_WALL)->setUseDescriptionId(IDS_DESC_COBBLESTONE_WALL);
 	Item::items[anvil_Id]				= ( new AnvilTileItem(anvil) )->setDescriptionId(IDS_TILE_ANVIL)->setUseDescriptionId(IDS_DESC_ANVIL);
 	Item::items[cobblestone_Id] = (new MultiTextureTileItem(Tile::cobblestone_Id - 256, Tile::cobblestone, (int*)CobblestoneTile::COBBLESTONE_NAMES, 2, IDS_TILE_STONE_BRICK))->setIconName(L"cobblestone")->setDescriptionId(IDS_TILE_STONE_BRICK)->setUseDescriptionId(IDS_DESC_STONE_BRICK);
 

@@ -32,6 +32,7 @@ const unsigned int PlayerRenderer::s_nametagColors[MINECRAFT_NET_MAX_PLAYERS] =
 
 ResourceLocation PlayerRenderer::DEFAULT_LOCATION = ResourceLocation(TN_MOB_CHAR);
 ResourceLocation PlayerRenderer::OXYGEN_SETUP_LOCATION = ResourceLocation(TN_MOB_OXYGEN_SETUP);
+ResourceLocation PlayerRenderer::OXYGEN_SETUP_REGULATOR_LOCATION = ResourceLocation(TN_MOB_OXYGEN_REGULATOR_SETUP);
 ResourceLocation PlayerRenderer::FREQUENCY_MODULE_LOCATION = ResourceLocation(TN_MOB_FREQUENCY_MODULE);
 
 PlayerRenderer::PlayerRenderer() : LivingEntityRenderer( new HumanoidModel(0), 0.5f )
@@ -642,7 +643,7 @@ void PlayerRenderer::renderSpaceSetup(shared_ptr<LivingEntity> entity, float tim
 
 		shared_ptr<Player> player = dynamic_pointer_cast<Player>(entity);
 		if(player != NULL && player->inventory->getRegulator()) {
-			bindTexture(&OXYGEN_SETUP_LOCATION);
+			bindTexture(&OXYGEN_SETUP_REGULATOR_LOCATION);
 		}else {
 			bindTexture(&OXYGEN_SETUP_LOCATION);
 		}

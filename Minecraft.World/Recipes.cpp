@@ -194,6 +194,14 @@ Recipes::Recipes()
 		L'#', Tile::mossyCobblestone,
 		L'S');
 
+	addShapedRecipy(new ItemInstance(Tile::cobbleWall, 6, WallTile::TYPE_MOON), //
+		L"ssczg",
+		L"###", //
+		L"###", //
+
+		L'#', new ItemInstance(Tile::cobblestone, 1, 1),
+		L'S');
+
 	addShapedRecipy(new ItemInstance(Item::door_wood, 1), //
 		L"sssctg",
 		L"##", //
@@ -271,6 +279,15 @@ Recipes::Recipes()
 		L"###", //
 
 		L'#', Tile::moonDungeonBricks,
+		L'S');
+
+	addShapedRecipy(new ItemInstance(Tile::moonCobblestoneStairs, 4), //
+		L"sssczg",
+		L"#  ", //
+		L"## ", //
+		L"###", //
+
+		L'#', new ItemInstance(Tile::cobblestone, 1, 1),
 		L'S');
 
 	addShapedRecipy(new ItemInstance(Tile::stairs_netherBricks, 4), //
@@ -421,6 +438,13 @@ Recipes::Recipes()
 		L"###", //
 
 		L'#', Tile::moonDungeonBricks,
+		L'S');
+
+	addShapedRecipy(new ItemInstance(Tile::stoneSlabHalf, 6, StoneSlabTile::MOON_COBBLESTONE_SLAB), //
+		L"sczg",
+		L"###", //
+
+		L'#', new ItemInstance(Tile::cobblestone, 1, 1),
 		L'S');
 
 	addShapedRecipy(new ItemInstance(Tile::stoneSlabHalf, 6, StoneSlabTile::NETHERBRICK_SLAB), //

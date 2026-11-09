@@ -14,6 +14,7 @@ public:
 	// 4J: Made public for use in skull renderer
 	static ResourceLocation DEFAULT_LOCATION;
 	static ResourceLocation OXYGEN_SETUP_LOCATION;
+	static ResourceLocation OXYGEN_SETUP_REGULATOR_LOCATION;
 	static ResourceLocation FREQUENCY_MODULE_LOCATION;
 
 private:

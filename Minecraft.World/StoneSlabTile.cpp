@@ -14,7 +14,8 @@ const unsigned int StoneSlabTile::SLAB_NAMES[SLAB_NAMES_LENGTH] = {	IDS_TILE_STO
 													IDS_TILE_STONESLAB_SMOOTHBRICK,
 													IDS_TILE_STONESLAB_NETHERBRICK,
 													IDS_TILE_STONESLAB_QUARTZ,
-													IDS_TILE_STONESLAB_MOONSTONE
+													IDS_TILE_STONESLAB_MOONSTONE,
+													IDS_TILE_STONESLAB_MOONCOBBLESTONE
 												};
 
 StoneSlabTile::StoneSlabTile(int id, bool fullSize) : HalfSlabTile(id, fullSize, Material::stone)
@@ -50,6 +51,8 @@ Icon *StoneSlabTile::getTexture(int face, int data)
 		return Tile::quartzBlock->getTexture(face);
 	case MOON_STONE_SLAB:
 		return Tile::moonDungeonBricks->getTexture(face);
+	case MOON_COBBLESTONE_SLAB:
+		return Tile::cobblestone->getTexture(face, 1);
 	}
 	
 	return icon;

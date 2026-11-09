@@ -18,8 +18,9 @@ public:
 	static const int NETHERBRICK_SLAB = 6;
 	static const int QUARTZ_SLAB = 7;
 	static const int MOON_STONE_SLAB = 8;
+	static const int MOON_COBBLESTONE_SLAB = 9;
 
-	static const int SLAB_NAMES_LENGTH = 9;
+	static const int SLAB_NAMES_LENGTH = 10;
 
 	static const unsigned int SLAB_NAMES[SLAB_NAMES_LENGTH];
 

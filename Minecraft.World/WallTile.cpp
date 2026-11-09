@@ -11,8 +11,8 @@ const float WallTile::WALL_HEIGHT = 13.0f / 16.0f;
 const float WallTile::POST_WIDTH = 4.0f / 16.0f;
 const float WallTile::POST_HEIGHT = 16.0f / 16.0f;
 
-const unsigned int WallTile::COBBLE_NAMES[2] = { IDS_TILE_COBBLESTONE_WALL,
-	IDS_TILE_COBBLESTONE_WALL_MOSSY,
+const unsigned int WallTile::COBBLE_NAMES[3] = { IDS_TILE_COBBLESTONE_WALL,
+	IDS_TILE_COBBLESTONE_WALL_MOSSY, IDS_TILE_MOON_COBBLESTONE_WALL
 };
 
 WallTile::WallTile(int id, Tile *baseTile) : Tile(id, baseTile->material, isSolidRender())
@@ -27,6 +27,10 @@ Icon *WallTile::getTexture(int face, int data)
 	if (data == TYPE_MOSSY)
 	{
 		return Tile::mossyCobblestone->getTexture(face);
+	}
+	else if (data == TYPE_MOON)
+	{
+		return Tile::cobblestone->getTexture(face, 1);
 	}
 	return Tile::cobblestone->getTexture(face);
 }
