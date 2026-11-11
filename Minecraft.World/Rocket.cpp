@@ -108,6 +108,24 @@ void Rocket::tick()
 	yo = y;
 	zo = z;
 
+	//Should hopefully fix players getting stuck when a rocket is above another rocket?
+	entityBlockingLaunch = false;
+
+	AABB *launchSpace = this->bb->expand(0, 3, 0);
+	vector<shared_ptr<Entity> > *objects = level->getEntities(shared_from_this(), launchSpace);
+
+	AUTO_VAR(itEnd, objects->end());
+	for (AUTO_VAR(it, objects->begin()); it != itEnd; it++)
+	{
+		shared_ptr<Entity> e = *it;
+		if(e == rider.lock()) continue;
+		if (launchSpace->intersects(e->bb))
+		{
+			entityBlockingLaunch = true;
+			break;
+		}
+	}
+
 	if (rider.lock() == NULL && getLaunched())
 	{
 		if (getPrelaunchTime() <= 0) {
@@ -119,6 +137,15 @@ void Rocket::tick()
 			setPrelaunchTime(20 * 10);
 			setCooldown(3 * 20);
 		}
+	}
+	
+	if (rider.lock() != NULL && getLaunched() && (entityBlockingLaunch || isLaunchBlocked())) {
+		rider.lock()->ride(NULL);
+		rider = weak_ptr<Entity>();
+		setLaunched(false);
+		ticksUntilNextSound = (20 * 3) - 1;
+		setPrelaunchTime(20 * 10);
+		setCooldown(3 * 20);
 	}
 
 	if (!level->isClientSide && getLaunched() && getPrelaunchTime() <= 0) {
@@ -231,23 +258,6 @@ void Rocket::tick()
 
 	if (getCooldown() > 0) {
 		setCooldown(getCooldown() - 1);
-	}
-
-	//Should hopefully fix players getting stuck when a rocket is above another rocket?
-	entityBlockingLaunch = false;
-
-	AABB *launchSpace = this->bb->expand(0, 3, 0);
-	vector<shared_ptr<Entity> > *objects = level->getEntities(shared_from_this(), launchSpace);
-
-	AUTO_VAR(itEnd, objects->end());
-	for (AUTO_VAR(it, objects->begin()); it != itEnd; it++)
-	{
-		shared_ptr<Entity> e = *it;
-		if (launchSpace->intersects(e->bb))
-		{
-			entityBlockingLaunch = true;
-			break;
-		}
 	}
 
 	// Server code after this

@@ -107,10 +107,8 @@ bool OxygenatorTileEntity::hasLeavesNearby() {
 	}
 
 	//Needs to be completely empty above where the fan is
-	for(int yO = y + 1; yO <= y + 5; yO++) {
-		if (!level->isEmptyTile(x, yO, z)) {
-			if(level->getTile(x, yO, z) != Tile::leaves_Id) return false;
-		}
+	if (!level->isEmptyTile(x, y + 1, z)) {
+		if(level->getTile(x, y + 1, z) != Tile::leaves_Id) return false;
 	}
 
 	for(int xO = -5; xO <= 5; xO++) {

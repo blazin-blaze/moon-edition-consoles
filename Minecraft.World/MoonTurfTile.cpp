@@ -8,5 +8,5 @@ MoonTurfTile::MoonTurfTile(int id) : Tile(id, Material::moonTurf)
 
 int MoonTurfTile::getResource(int data, Random* random, int playerBonusLevel)
 {
-	return Tile::cobblestone_Id;
+	return Tile::moonDirt_Id;
 }
