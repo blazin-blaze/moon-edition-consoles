@@ -19,6 +19,10 @@ IUIScene_AbstractContainerMenu::ESceneSection IUIScene_InventoryMenu::GetSection
 			{
 				newSection = eSectionInventoryUsing;
 			}
+			else if (eTapDirection == eTapStateRight || eTapDirection == eTapStateLeft)
+			{
+				newSection = eSectionInventorySpace;
+			}
 			break;
 		case eSectionInventorySpace:
 			if (eTapDirection == eTapStateDown)
@@ -29,6 +33,10 @@ IUIScene_AbstractContainerMenu::ESceneSection IUIScene_InventoryMenu::GetSection
 			{
 				newSection = eSectionInventoryUsing;
 			}
+			else if (eTapDirection == eTapStateRight || eTapDirection == eTapStateLeft)
+			{
+				newSection = eSectionInventoryArmor;
+			}
 			break;
 		case eSectionInventoryInventory:
 			if(eTapDirection == eTapStateDown)
@@ -37,13 +45,27 @@ IUIScene_AbstractContainerMenu::ESceneSection IUIScene_InventoryMenu::GetSection
 			}
 			else if(eTapDirection == eTapStateUp)
 			{
-				newSection = eSectionInventoryArmor;
+				if (*piTargetX <= 1)
+				{
+					newSection = eSectionInventorySpace;
+				}
+				else
+				{
+					newSection = eSectionInventoryArmor;
+				}
 			}
 			break;
 		case eSectionInventoryUsing:
 			if(eTapDirection == eTapStateDown)
 			{
-				newSection = eSectionInventoryArmor;
+				if (*piTargetX <= 1)
+				{
+					newSection = eSectionInventorySpace;
+				}
+				else
+				{
+					newSection = eSectionInventoryArmor;
+				}
 			}
 			else if(eTapDirection == eTapStateUp)
 			{

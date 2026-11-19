@@ -9,16 +9,16 @@
 # Minecraft.Client
 /Minecraft.Client/x64
 /Minecraft.Client/x64_*
-/Minecraft.Client/*Debug
-/Minecraft.Client/*Release*
+/Minecraft.Client/*Debug*/
+/Minecraft.Client/*Release*/
 /Minecraft.Client/*ContentPackage*
 /Minecraft.Client/Windows64/GameHDD
 
 # Minecraft.world
 /Minecraft.World/x64
 /Minecraft.World/x64_*
-/Minecraft.World/*Debug
-/Minecraft.World/*Release*
+/Minecraft.World/*Debug*/
+/Minecraft.World/*Release*/
 /Minecraft.World/*ContentPackage*
 
 # PS3 SPU Tasks
