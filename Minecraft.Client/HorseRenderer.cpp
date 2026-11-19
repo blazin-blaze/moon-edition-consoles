@@ -46,9 +46,35 @@ void HorseRenderer::renderModel(shared_ptr<LivingEntity> mob, float wp, float ws
     }
 	else
 	{
-		EntityRenderer::bindTexture(mob);
-	    model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
-		// Ensure that any extra layers of texturing are disabled after rendering this horse
+		shared_ptr<EntityHorse> horse = dynamic_pointer_cast<EntityHorse>(mob);
+		ResourceLocation *location = getTextureLocation(mob);
+	
+		// Pass 1: Bind only the coat texture (first valid layer) and render opaque
+		int coatTex = location->getTexture(0);
+		if( coatTex != -1 )
+			{
+			RenderManager.TextureBind(entityRenderDispatcher->textures->loadTexture(coatTex));
+		}
+		model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
+	
+		// Pass 2: If horse has armor, find the armor texture in the layers and render with blending
+		int armorType = horse->getArmorType();
+		if( armorType > 0 )
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			for( int i = 1; i < location->getTextureCount(); i++ )
+			{
+				int texId = location->getTexture(i);
+				if( texId != -1 )
+				{
+					RenderManager.TextureBind(entityRenderDispatcher->textures->loadTexture(texId));
+					model->render(mob, wp, ws, bob, headRotMinusBodyRot, headRotx, scale, true);
+				}
+			}
+			glDisable(GL_BLEND);
+		}
+
 		RenderManager.TextureBind(-1);
     }
 }

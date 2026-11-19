@@ -710,7 +710,7 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 	if (!hasVillage)
 	{
 		int x = xo + pprandom->nextInt(16) + 8;
-		int y = pprandom->nextInt(Level::genDepth);
+		int y = pprandom->nextInt(Level::genDepth - 48);
 		int z = zo + pprandom->nextInt(16) + 8;
 
 		CraterFeature crater;

@@ -893,7 +893,7 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 		addPlayerToReceiving(player);
 	}
 
-	if (lastDimension != 1 && lastDimension != 2)
+	if (lastDimension != 1)
 	{
 		xt = (double) Mth::clamp((int) xt, -Level::MAX_LEVEL_SIZE + 128, Level::MAX_LEVEL_SIZE - 128);
 		zt = (double) Mth::clamp((int) zt, -Level::MAX_LEVEL_SIZE + 128, Level::MAX_LEVEL_SIZE - 128);
@@ -902,9 +902,12 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 			newLevel->addEntity(entity);
 			entity->moveTo(xt, entity->y, zt, entity->yRot, entity->xRot);
 			newLevel->tick(entity, false);
-			newLevel->cache->autoCreate = true;
-			newLevel->getPortalForcer()->force(entity, xOriginal, yOriginal, zOriginal, yRotOriginal);
-			newLevel->cache->autoCreate = false;
+			//Don't create portal when returning from moon
+			if(lastDimension != 2) {
+				newLevel->cache->autoCreate = true;
+				newLevel->getPortalForcer()->force(entity, xOriginal, yOriginal, zOriginal, yRotOriginal);
+				newLevel->cache->autoCreate = false;
+			}
 		}
 	}
 
