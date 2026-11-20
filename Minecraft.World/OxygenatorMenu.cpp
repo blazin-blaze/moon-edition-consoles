@@ -70,7 +70,13 @@ shared_ptr<ItemInstance> OxygenatorMenu::quickMoveStack(shared_ptr<Player> playe
 		shared_ptr<ItemInstance> stack = slot->getItem();
 		clicked = stack->copy();
 
-		if (!IngredientSlot->hasItem() && IngredientSlot->mayPlace(stack))
+		if (slotIndex == INGREDIENT_SLOT) {
+			if (!moveItemStackTo(stack, INV_SLOT_START, USE_ROW_SLOT_END, true))
+			{
+				return nullptr;
+			}
+		}
+		else if (!IngredientSlot->hasItem() && IngredientSlot->mayPlace(stack))
 		{
 			if (!moveItemStackTo(stack, INGREDIENT_SLOT, INGREDIENT_SLOT + 1, false))
 			{

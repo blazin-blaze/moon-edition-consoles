@@ -207,9 +207,9 @@ void Rocket::tick()
 
 	if (getLaunched() && getPrelaunchTime() <= 0) {
 		int minX = (int)floor(bb->x0);
-		int maxX = (int)floor(bb->x1);
+		int maxX = (int)ceil(bb->x1) - 1;
 		int minZ = (int)floor(bb->z0);
-		int maxZ = (int)floor(bb->z1);
+		int maxZ = (int)ceil(bb->z1) - 1;
 		int topY = (int)floor(bb->y1); 
 
 		for (int by = topY; by < topY + 3; by++) {
@@ -521,12 +521,18 @@ void Rocket::setCustomName(wstring name) {
 }
 
 bool Rocket::isLaunchBlocked() {
-	int rocketX = (int)floor(x);
-	int rocketZ = (int)floor(z);
-	int rocketY = (int)floor(bb->y0);
+	int rocketMinX = (int)floor(bb->x0);
+	int rocketMaxX = (int)ceil(bb->x1) - 1;
+	int rocketMinZ = (int)floor(bb->z0);
+	int rocketMaxZ = (int)ceil(bb->z1) - 1;
+	int rocketY = (int)floor(bb->y0); 
 
-	int topY = level->getTopSolidBlock(rocketX, rocketZ);
-	if (topY != -1 && topY > rocketY) return true;
+	for (int bx = rocketMinX; bx <= rocketMaxX; bx++) {
+		for (int bz = rocketMinZ; bz <= rocketMaxZ; bz++) {
+			int topY = level->getTopSolidBlock(bx, bz);
+			if (topY != -1 && topY > rocketY) return true;
+		}
+	}
 
 	return false;
 }

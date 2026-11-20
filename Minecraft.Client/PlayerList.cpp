@@ -902,7 +902,7 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 			newLevel->addEntity(entity);
 			entity->moveTo(xt, entity->y, zt, entity->yRot, entity->xRot);
 			newLevel->tick(entity, false);
-			//Don't create portal when returning from moon
+			//Don't do portal forcer when returning from moon
 			if(lastDimension != 2) {
 				newLevel->cache->autoCreate = true;
 				newLevel->getPortalForcer()->force(entity, xOriginal, yOriginal, zOriginal, yRotOriginal);
@@ -912,6 +912,12 @@ void PlayerList::repositionAcrossDimension(shared_ptr<Entity> entity, int lastDi
 	}
 
 	entity->setLevel(newLevel);
+
+	if(entity->GetType() == eTYPE_SERVERPLAYER)
+	{
+		shared_ptr<ServerPlayer> plr = dynamic_pointer_cast<ServerPlayer>(entity);
+		plr->moonTeleportationActive = false;
+	}
 }
 
 void PlayerList::tick()

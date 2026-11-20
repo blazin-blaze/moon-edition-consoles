@@ -882,7 +882,7 @@ void Tile::staticCtor()
 	Tile::coalBlock->setDescriptionId(IDS_TILE_COAL);
 	Tile::coalBlock->setUseDescriptionId(IDS_DESC_COAL_BLOCK);
 
-	Tile::moonTurf = (new MoonTurfTile(174))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonTurf")->setDescriptionId(IDS_TILE_MOON_TURF)->setUseDescriptionId(IDS_DESC_MOON_TURF);
+	Tile::moonTurf = (new MoonTurfTile(174))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_SAND)->setIconName(L"moonTurf")->setDescriptionId(IDS_TILE_MOON_TURF)->setUseDescriptionId(IDS_DESC_MOON_TURF);
 	Tile::moonDirt = (new Tile(175, Material::moonDirt))->setDestroyTime(0.5f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonDirt")->setDescriptionId(IDS_TILE_MOON_DIRT)->setUseDescriptionId(IDS_DESC_MOON_DIRT);
 	Tile::moonStone = (new MoonStoneTile(176))->setDestroyTime(1.5f)->setExplodeable(10)->setSoundType(Tile::SOUND_STONE)->setIconName(L"moonStone")->setDescriptionId(IDS_TILE_MOON_STONE)->setUseDescriptionId(IDS_DESC_MOON_STONE);
 

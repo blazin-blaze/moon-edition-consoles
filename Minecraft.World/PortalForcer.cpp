@@ -67,12 +67,6 @@ void PortalForcer::force(shared_ptr<Entity> e, double xOriginal, double yOrigina
 
 		e->moveTo(x, y, z, e->yRot, 0);
 		e->xd = e->yd = e->zd = 0;
-		
-		if(e->GetType() == eTYPE_SERVERPLAYER)
-		{
-			shared_ptr<ServerPlayer> plr = dynamic_pointer_cast<ServerPlayer>(e);
-			plr->moonTeleportationActive = false;
-		}
 
 		return;
 	}
