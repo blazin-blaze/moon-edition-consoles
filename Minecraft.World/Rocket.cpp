@@ -159,6 +159,9 @@ void Rocket::tick()
 				else {
 					yd -= 0.08;
 				}
+			}else {
+				xd *= 0;
+				zd *= 0;
 			}
 		}
 
@@ -190,6 +193,9 @@ void Rocket::tick()
 		else {
 			yd -= 0.08;
 		}
+	} else {
+		xd *= 0;
+		zd *= 0;
 	}
 
 	move(xd, yd, zd);

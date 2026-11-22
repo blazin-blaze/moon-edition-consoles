@@ -103,8 +103,8 @@ public:
 	//str1k3r - dont ask.
 	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR uiText, DWORD dwPad, WCHAR *pwchResult, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
 	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR pwchDefault, LPCWSTR uiDesc, DWORD dwPad, WCHAR *pwchResult, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
+	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR uiText, DWORD dwPad, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, C_4JInput::EKeyboardMode eMode);
 	C4JStorage::EMessageResult RequestMessageBox(LPCWSTR uiTitle, LPCWSTR uiText, LPCWSTR *uiButtons, UINT uiButtonCount, DWORD dwPad, int(*Func)(LPVOID, int, const C4JStorage::EMessageResult), LPVOID lpParam, DWORD dwFocusButton);
-	EKeyboardResult		RequestKeyboard(LPCWSTR uiTitle, LPCWSTR uiText, DWORD dwPad, UINT uiMaxChars, int(*Func)(LPVOID, const bool), LPVOID lpParam, EKeyboardMode eMode);
 
 	void				DestroyKeyboard();
 	void				GetText(uint16_t *UTF16String);

@@ -230,7 +230,7 @@ typedef XUID GameSessionUID;
 	#include "Xbox\Sentient\SentientTelemetryCommon.h"
 	#include "Xbox\Sentient\Include\SenClientStats.h"
 	#include "Xbox\GameConfig\Minecraft.spa.h"
-	#include "XboxMedia\4J_strings.h"
+//	#include "XboxMedia\4J_strings.h"
 	#include "Xbox\XML\ATGXmlParser.h"
 	#include "Xbox\Leaderboards\XboxLeaderboardManager.h"
 	#include "Xbox\Social\SocialManager.h"
