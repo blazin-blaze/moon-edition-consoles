@@ -680,6 +680,65 @@ void MoonLevelRandomLevelSource::calcWaterDepths(ChunkSource* parent, int xt, in
 
 }
 
+/*
+Function to create index for array of tiles that will be skipped during creation of moon dirt edge (to avoid rough chunk cut-offs)
+- Returns -1 if the tile is in an invalid location for craters (outside of edge)
+- Otherwise, returns index of where the tile should be located in the array based on edge it is located on and its x,y,z coordinates
+*/
+int MoonLevelRandomLevelSource::getCraterFlagIndex(int bx, int by, int bz, int minTerrain, int maxTerrain) 
+{
+	//If below or above vertical world boundaries, skip.
+	if(by < 0 || by >= Level::genDepth) return -1;
+
+	//If outside of an edge, skip
+	if (bx < minTerrain || bx > maxTerrain ||
+		bz < minTerrain || bz > maxTerrain) return -1;
+	
+	//Define which edge we are currently on (out of 4)
+	int edge;
+	int position;
+	//Define which layer of the edge we are currently on (0, 1, or 2)
+	int layer;
+
+	//If coordinate is within 3 layers from the edge...
+	if(bx - minTerrain < 3) {
+		edge = 0;
+		//If our edge is on the x-axis, x coordinate will be constant, our horizontal positions of a crater will change on the z-axis
+		//bz - minTerrain, starting at 0 going to edgeLength - 1 (index starts at 0)
+		position = bz - minTerrain;
+		//Edge is on the x-axis, so layers will also go along the x-axis
+		layer = bx - minTerrain;
+	}else if(maxTerrain - bx < 3) {
+		edge = 1;
+		position = bz - minTerrain;
+		layer = maxTerrain - bx;
+	}else if (bz - minTerrain < 3) {
+		edge = 2;
+		//If our edge is on the z-axis, z coordinate will be constant, our horizontal positions of a crater will change on the x-axis
+		//bx - minTerrain, starting at 0 going to edgeLength - 1 (index starts at 0)
+		position = bx - minTerrain;
+		//Edge is on the z-axis, so layers will also go along the z-axis
+		layer = bz - minTerrain;
+	}else if (maxTerrain - bz < 3) {
+		edge = 3;
+		position = bx - minTerrain;
+		layer = maxTerrain - bz;
+	}else {
+		return -1;
+	}
+
+	//Each edge has a length of one slice of the horizontal length of a world, plus 1 to be inclusive on both endpoints
+	int edgeLength = maxTerrain - minTerrain + 1;
+
+	/*Index goes as follows:
+	All first edge blocks [defined as (horizontal position offset) * (all layers of previous position + current layer) * (all y-levels of previous positions + vertical position offset)]
+	All second edge blocks [defined as (all first edge blocks + horizontal position offset) * (all layers of previous position + current layer) * (all y-levels of previous positions + vertical position offset)]
+	All third edge blocks [defined as (all first/second edge blocks + horizontal position offset) * (all layers of previous position + current layer) * (all y-levels of previous positions + vertical position offset)]
+	All fourth edge blocks [defined as (all first/second/third edge blocks + horizontal position offset) * (all layers of previous position + current layer) * (all y-levels of previous positions + vertical position offset)]
+	*/
+	return ((edge * edgeLength + position) * 3 + layer) * Level::genDepth + by;
+}
+
 // 4J - changed this to used pprandom rather than random, so that we can run it concurrently with getChunk
 void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt)
 {
@@ -707,10 +766,10 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 	PIXEndNamedEvent();
 
 	PIXBeginNamedEvent(0,"Craters");
-	if (!hasVillage)
+	if (!hasVillage && pprandom->nextInt(3) == 1)
 	{
 		int x = xo + pprandom->nextInt(16) + 8;
-		int y = pprandom->nextInt(Level::genDepth - 48);
+		int y = 48 + pprandom->nextInt(Level::genDepth - 48);
 		int z = zo + pprandom->nextInt(16) + 8;
 
 		CraterFeature crater;
@@ -741,6 +800,286 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 	MobSpawner::postProcessSpawnMobs(level, biome, xo + 8, zo + 8, 16, 16, pprandom);
 	PIXEndNamedEvent();
 
+	PIXBeginNamedEvent(0, "Edge of world generation");
+
+	/*
+	Following code is used to generate the edge of the moon (craters, void, moon dirt wall)
+	*/
+
+	//Size of world
+	const int worldSize = m_XZSize * 16;
+	//Divide it in two so we get the size of world in each direction (world is centered around 0,0)
+	const int halfSize = worldSize / 2;
+
+	//Edges located at the negative sides
+	const int minTerrain = -halfSize + 5;
+
+	//Edges located at the positive sides 
+	const int maxTerrain = halfSize - 6;
+
+	//If the moonEdgeCraterFlags array hasn't been initialized yet, do so now.
+	if(moonEdgeCraterFlags.empty()) {
+		//Each edge has a length of one slice of the horizontal length of a world, plus 1 to be inclusive on both endpoints
+		int edgeLength = maxTerrain - minTerrain + 1;
+
+		//There are 4 edges to a world, so we allocate space for all 4 edges (which goes back 3 layers to account for possible edge chunks all the way through the crater,
+		//which has a vertical radius of 2, and all possible y-values (1-dimensional array for 3D-coordinate space) 
+		//Populate each value with "false", since we don't know where the craters will be yet.
+		moonEdgeCraterFlags.resize((4 * edgeLength) * 3 * Level::genDepth, false);
+	}
+
+	//Remove edge of world 
+	for(int x = 0; x < 16; x++) {
+		for(int z = 0; z < 16; z++) {
+			//Coordinate chunk space to world space
+			int worldX = xt * 16 + x;
+			int worldZ = zt * 16 + z;
+
+			//If within 5 blocks of edge of world, remove the tile to create void to fall through
+			if(worldX < -halfSize + 5 ||
+				worldX >= halfSize - 5 ||
+				worldZ < -halfSize + 5 ||
+				worldZ >= halfSize - 5) {
+					for(int y = 0; y < Level::genDepth; y++) {
+						level->setTileAndData(worldX, y, worldZ, 0, 0, Tile::UPDATE_ALL);
+					}
+			}
+
+			//If within the edge of the generated moon, fill with moon dirt to make edge of moon blend in with rest of terrain
+			if(worldX == -halfSize + 5 || worldX == halfSize - 6 || worldZ == -halfSize + 5 || worldZ == halfSize - 6) {
+				//Extend this moon dirt edge to the top block of the terrain above
+				int topY = level->getTopSolidBlock(worldX, worldZ);
+				for(int y = 0; y < topY; y++) {
+
+					//Let's just check that we aren't placing blocks over a crater genered in a previous chunk....
+					int index = getCraterFlagIndex(worldX, y, worldZ, minTerrain, maxTerrain);
+
+					if(index != -1 && moonEdgeCraterFlags[index] == true) continue;
+
+					int tile = level->getTile(worldX, y, worldZ);
+
+					//We don't want to overwrite certain blocks, so let's just check its one of this approved tiles first
+					if(tile == Tile::moonTurf_Id || 
+						tile == Tile::moonDirt_Id || 
+						tile == Tile::moonStone_Id || 
+						tile == Tile::sapphireOre_Id || 
+						tile == Tile::titaniumOre_Id || 
+						tile == Tile::moonQuartzOre_Id || 
+						tile == Tile::lava_Id || 
+						tile == Tile::moonDungeonBricks_Id ||
+						tile == Tile::moonDungeonCrackedBricks_Id || 
+						tile == Tile::moonDungeonMossyBricks_Id ||
+						tile == Tile::water_Id ||
+						tile == Tile::greenWeb_Id ||
+						tile == 0) {
+						level->setTileAndData(worldX, y, worldZ, Tile::moonDirt_Id, 0, Tile::UPDATE_ALL);
+					}
+				}
+			}
+		}
+	}
+
+	//Predefined offsets for moon dirt coverage inside the crater later on
+	const int offsets[6][3] = {
+		{ 1, 0, 0}, {-1, 0, 0},
+		{ 0, 1, 0}, { 0,-1, 0},
+		{ 0, 0, 1}, { 0, 0,-1}
+	};
+
+	//Side crater generation
+	for(int x = 0; x < 16; x++) {
+		for(int z = 0; z < 16; z++) {
+			//Coordinate chunk space to world space
+			int worldX = xt * 16 + x;
+			int worldZ = zt * 16 + z;
+
+			//If we are located at any of the four edges...
+			if(worldX == -halfSize + 5 || worldX == halfSize - 6 || worldZ == -halfSize + 5 || worldZ == halfSize - 6) {
+				int topY = level->getTopSolidBlock(worldX, worldZ);
+				for(int y = 0; y < topY; y++) {
+					//See if we are generating a crater (1/250 chance)
+					if(pprandom->nextInt(250) != 10) continue;
+
+					//If we are generating a crater, choose from a diameter of 10-13
+					int randomXZ = 10 + pprandom->nextInt(4);
+					int randomY = 10 + pprandom->nextInt(4);
+
+					//Radius for X, Z, Y
+					double rX;
+					double rY = randomY/2.0;
+					double rZ;
+
+					//If we are on an edge which faces the X-axis, x stays constant, 
+					//our horizontal radius of the crater will extend along the Z-axis, 
+					//and the inner radius (depth) inward along the X-axis
+					if(worldX == -halfSize + 5 || worldX == halfSize - 6) {
+						rX = 2;
+						rZ = randomXZ/2.0;
+					}
+					//If we are on an edge which faces the Z-axis, z stays constant, 
+					//our horizontal radius of the crater will extend along the X-axis, 
+					//and the inner radius (depth) inward along the Z-axis
+					else {
+						rX = randomXZ/2.0;
+						rZ = 2;
+					}
+
+					//Rounded integers of radii
+					int rXRounded = (int)ceil(rX);
+					int rYRounded = (int)ceil(rY);
+					int rZRounded = (int)ceil(rZ);
+
+					//If the crater's vertical radius extends below 0 or above the top of the terrain, we don't want to spawn it
+					//If we did, it would create strange above/below-ground "craters"
+					if (y - rYRounded - 1 < 0 || y + rYRounded + 1 >= topY) continue;
+
+					for(int xx = -rXRounded; xx <= rXRounded; xx++) {
+						for(int yy = -rYRounded; yy <= rYRounded; yy++) {
+							for(int zz = -rZRounded; zz <= rZRounded; zz++) {
+								double dx = xx / rX;
+								double dy = yy / rY;
+								double dz = zz / rZ;
+
+								//Use ellipsoid formula
+								//(x/r)^2 + (y/r)^2 + (z/r)^2 <= 1
+								if (dx*dx + dy*dy + dz*dz <= 1.0) {
+									//Create world coordinates with offsets
+									int bx = worldX + xx;
+									int by = y + yy;
+									int bz = worldZ + zz;
+
+									//If our offsets x/z go outside the edges, or our y offset goes outside of terrain above/below, skip.
+									if (bx < minTerrain || bx > maxTerrain ||
+										bz < minTerrain || bz > maxTerrain ||
+										by < 0 || by >= topY)
+										continue;
+
+									//Create index for crater block to avoid harsh chunk cut-offs from making the moon dirt wall in later chunks
+									//tl;dr, we're making a list of crater blocks to skip in later chunk generations if they overlap
+									int index = getCraterFlagIndex(bx, by, bz, minTerrain, maxTerrain);
+
+									//if index is -1, it is not along the edge of the world and hence does not get impacted by
+									//the moon dirt edge wall, we can skip including it in the array.
+									if(index != -1) {
+										//Otherwise, mark this block for chunk protection.
+										moonEdgeCraterFlags[index] = true;
+									}
+
+									level->setTileAndData(bx, by, bz, 0, 0, Tile::UPDATE_CLIENTS);
+
+									/*Checks surrounding blocks to see if they are outside crater; if so:
+									 - Check to see they are not air. If they aren't, replace with moon dirt (makes inner craters look more visually appealing).
+									 - Scatter cheese ore around the edges.
+									*/
+									for(int i = 0; i < 6; i++) {
+										//Go through predefined offsets
+										int xOff = xx + offsets[i][0];
+										int yOff = yy + offsets[i][1];
+										int zOff = zz + offsets[i][2];
+
+										double dxOff = xOff / rX;
+										double dyOff = yOff / rY;
+										double dzOff = zOff / rZ;
+
+										//Check to see if they are outside of the ellipsoid (i.e visible from inside of the
+										//crater but not a part of the crater ellpisoid cutout)
+										if(dxOff*dxOff + dyOff*dyOff + dzOff*dzOff > 1.0) {
+											bx = worldX + xOff;
+											by = y + yOff;
+											bz = worldZ + zOff;
+
+											//Terrain check again
+											if (bx < minTerrain || bx > maxTerrain ||
+												bz < minTerrain || bz > maxTerrain ||
+												by < 0 || by >= topY)
+												continue;
+
+											//If it is air, skip the tile.
+											if(level->isEmptyTile(bx, by, bz)) continue;
+
+											//Chance of spawning cheese ore instead (1/20 chance)
+											if(pprandom->nextInt(20) == 2) {
+												level->setTileAndData(bx, by, bz, Tile::cheeseOre_Id, 0, Tile::UPDATE_CLIENTS);
+											}else {
+												level->setTileAndData(bx, by, bz, Tile::moonDirt_Id, 0, Tile::UPDATE_CLIENTS);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//Remove flagged blocks (carves out moon stone block chunk edges, seperate issue from moon dirt edges)
+	for(int x = 0; x < 16; x++) {
+		for(int z = 0; z < 16; z++) {
+			//Convert from chunk coordinates to world coordinates
+			int worldX = xt * 16 + x;
+			int worldZ = zt * 16 + z;
+
+			int index = getCraterFlagIndex(worldX, 0, worldZ, minTerrain, maxTerrain);
+
+			//We can just check the entire vertical column here since if worldX/worldZ is outside minTerrain/maxTerrain, or not within
+			//the three layers, all blocks in that column must be, too, as all blocks in a vertical column share same X/Z.
+			if(index == -1) continue;
+
+			for(int y = 0; y < Level::genDepth; y++) {
+				//This loop is within the bounds of 0 to Level::genDepth - 1, so we don't need to worry about its index being -1.
+				int nextIndex = index + y;
+
+				//If we have flagged this block for being within a side crater and it isn't already an air block, make it an air block.
+				if(moonEdgeCraterFlags[nextIndex] && !level->isEmptyTile(worldX, y, worldZ)) level->setTileAndData(worldX, y, worldZ, 0, 0, Tile::UPDATE_ALL);
+			}
+		}
+	}
+
+	//Last pass - fill in moon dirt for previously removed flagged blocks
+	for(int x = 0; x < 16; x++) {
+		for(int z = 0; z < 16; z++) {
+			//Convert from chunk coordinates to world coordinates
+			int worldX = xt * 16 + x;
+			int worldZ = zt * 16 + z;
+
+			//Check to see if we are within the bounds of the world
+			if(worldX < minTerrain || worldX > maxTerrain || worldZ < minTerrain || worldZ > maxTerrain) continue;
+
+			//Check to see if we are within the three layers
+			if(worldX - minTerrain > 3 && maxTerrain - worldX > 3 && worldZ - minTerrain > 3 && maxTerrain - worldZ < 3) continue;
+
+			for(int y = 0; y < Level::genDepth; y++) {
+				//Don't replace block that is air
+				if(level->isEmptyTile(worldX, y, worldZ)) continue;
+
+				//Don't replace crater block that was removed
+				int index = getCraterFlagIndex(worldX, y, worldZ, minTerrain, maxTerrain);
+				
+				if(index != -1 && moonEdgeCraterFlags[index]) continue;
+
+				for(int i = 0; i < 6; i++) {
+					//Go through predefined offsets
+					int xOff = worldX + offsets[i][0];
+					int yOff = y + offsets[i][1];
+					int zOff = worldZ + offsets[i][2];
+
+					//Now let's check if a block next to the block we're on is a part of the crater
+					int offsetIndex = getCraterFlagIndex(xOff, yOff, zOff, minTerrain, maxTerrain);
+
+					if(index == -1 || !moonEdgeCraterFlags[offsetIndex]) continue;
+
+					//If it is, that means it is exposed, so let's replace this block with a moon dirt block.
+					level->setTileAndData(worldX, y, worldZ, Tile::moonDirt_Id, 0, Tile::UPDATE_ALL);
+					break;
+				}
+			}
+		}
+	}
+
+	PIXEndNamedEvent();
+					
 	HeavyTile::instaFall = false;
 }
 

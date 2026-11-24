@@ -1072,6 +1072,7 @@ void PreStitchedTextureMap::loadUVs()
 		ADD_ICON(22,	0,	L"oil");
 		ADD_ICON_SIZE(22,1,L"oil_flow",2,2);
 		ADD_ICON(22, 15, L"door_quartz_lower");
+		ADD_ICON(22,	3,	L"moonGravel");
 		ADD_ICON(22,	4,	L"oxygenator_top");
 		ADD_ICON(22,	5,	L"oxygenator_side");
 		ADD_ICON(22,	6,	L"oxygenator_front");

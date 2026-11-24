@@ -86,39 +86,6 @@ MultiPlayerChunkCache::MultiPlayerChunkCache(Level *level)
 					}
 		}
 	}
-	else if (level->dimension->id == 2) {
-		byteArray bytes = byteArray(16 * 16 * 128);
-
-		for (int x = 0; x < 16; x++)
-			for (int y = 0; y < 128; y++)
-				for (int z = 0; z < 16; z++)
-				{
-					unsigned char tileId = 0;
-					if (y <= (level->getSeaLevel() - 20)) tileId = Tile::moonStone_Id;
-					else if (y < level->getSeaLevel() - 10) tileId = Tile::moonDirt_Id;
-
-					bytes[x << 11 | z << 7 | y] = tileId;
-				}
-
-		waterChunk = new WaterLevelChunk(level, bytes, 0, 0);
-
-		delete[] bytes.data;
-
-		//for moon we dont check for superflat
-		for (int x = 0; x < 16; x++)
-			for (int y = 0; y < 128; y++)
-				for (int z = 0; z < 16; z++)
-				{
-					if (y >= (level->getSeaLevel() - 1))
-					{
-						static_cast<WaterLevelChunk*>(waterChunk)->setLevelChunkBrightness(LightLayer::Sky, x, y, z, 15);
-					}
-					else
-					{
-						static_cast<WaterLevelChunk*>(waterChunk)->setLevelChunkBrightness(LightLayer::Sky, x, y, z, 2);
-					}
-				}
-	}
 	else
 	{
 		waterChunk = NULL;

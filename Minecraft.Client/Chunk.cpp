@@ -7,6 +7,7 @@
 #include "..\Minecraft.World\net.minecraft.world.level.tile.h"
 #include "..\Minecraft.World\net.minecraft.world.level.tile.entity.h"
 #include "LevelRenderer.h"
+#include "..\Minecraft.World\Dimension.h"
 
 #ifdef __PS3__
 #include "PS3\SPU_Tasks\ChunkUpdate\ChunkRebuildData.h"
@@ -275,6 +276,8 @@ void Chunk::rebuild()
 				// Don't bother trying to work out neighbours for this tile if we are at the edge of the chunk - apart from the very
 				// bottom of the world where we shouldn't ever be able to see
 				if( yy == (Level::maxBuildHeight - 1) ) continue;
+				//If in moon dimension, allow rendering of bottom blocks
+				if( yy == 0 && !level->dimension->hasGround()) continue;
 				if(( xx == 0 ) || ( xx == 15 )) continue;
 				if(( zz == 0 ) || ( zz == 15 )) continue;
 				

@@ -77,10 +77,13 @@ private:
 
 public:
 	virtual void postProcess(ChunkSource* parent, int xt, int zt);
+	virtual int getCraterFlagIndex(int bx, int by, int bz, int minTerrain, int maxTerrain);
 	virtual bool save(bool force, ProgressListener* progressListener);
 	virtual bool tick();
 	virtual bool shouldSave();
 	virtual wstring gatherStats();
+
+	vector<bool> moonEdgeCraterFlags;
 
 public:
 	virtual vector<Biome::MobSpawnerData*>* getMobsAt(MobCategory* mobCategory, int x, int y, int z);

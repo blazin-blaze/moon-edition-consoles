@@ -39,7 +39,7 @@ Vec3* MoonDimension::getFogColor(float td, float a) const
 
 bool MoonDimension::hasGround()
 {
-	return true;
+	return false;
 }
 
 bool MoonDimension::mayRespawn() const
@@ -54,7 +54,7 @@ bool MoonDimension::isNaturalDimension()
 
 float MoonDimension::getCloudHeight()
 {
-	return -1;
+	return 8;
 }
 
 bool MoonDimension::isValidSpawn(int x, int z) const

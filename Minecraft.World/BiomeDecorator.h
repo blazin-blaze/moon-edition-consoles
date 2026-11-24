@@ -32,10 +32,12 @@ protected:
 	Feature *clayFeature;
 	Feature *sandFeature;
 	Feature *gravelFeature;
+	Feature *moonGravelFeature;
 	Feature *dirtOreFeature;
 	Feature* moonDirtOreFeature;
 	Feature* cheeseOreFeature;
 	Feature *gravelOreFeature;
+	Feature *moonGravelOreFeature;
 	Feature *coalOreFeature;
 	Feature *ironOreFeature;
 	Feature *goldOreFeature;

@@ -7,9 +7,11 @@ vector<Tile *> User::allowedTiles;
 void User::staticCtor()
 {
 	allowedTiles.push_back(Tile::stone);
+	allowedTiles.push_back(Tile::moonStone);
 	allowedTiles.push_back(Tile::cobblestone);
 	allowedTiles.push_back(Tile::redBrick);
 	allowedTiles.push_back(Tile::dirt);
+	allowedTiles.push_back(Tile::moonDirt);
 	allowedTiles.push_back(Tile::wood);
 	allowedTiles.push_back(Tile::treeTrunk);
 	allowedTiles.push_back(Tile::leaves);
@@ -25,6 +27,7 @@ void User::staticCtor()
 	allowedTiles.push_back(Tile::mushroom_red);
 	allowedTiles.push_back(Tile::sand);
 	allowedTiles.push_back(Tile::gravel);
+	allowedTiles.push_back(Tile::moonGravel);
 	allowedTiles.push_back(Tile::sponge);
 
 	allowedTiles.push_back(Tile::wool);

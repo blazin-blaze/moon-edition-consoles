@@ -1,7 +1,7 @@
 #pragma once
 #include "DiggerItem.h"
 
-#define SHOVEL_DIGGABLES 13
+#define SHOVEL_DIGGABLES 14
 class ShovelItem : public DiggerItem
 {
 private:

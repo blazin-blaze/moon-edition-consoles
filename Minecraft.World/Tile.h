@@ -407,6 +407,8 @@ public:
 	static const int moonStoneStairs_Id = 207;
 	static const int moonCobblestoneStairs_Id = 208;
 
+	static const int moonGravel_Id = 209;
+
 	static Tile *stone;
 	static GrassTile *grass;
 	static Tile *dirt;
@@ -623,6 +625,8 @@ public:
 
 	static Tile *moonStoneStairs;
 	static Tile *moonCobblestoneStairs;
+
+	static Tile *moonGravel;
 
 	static void staticCtor();
 

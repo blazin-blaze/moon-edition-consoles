@@ -21,9 +21,12 @@ void EnderMan::staticCtor()
 {
 	ZeroMemory(MAY_TAKE, sizeof(bool) * 256);
 	MAY_TAKE[Tile::grass_Id] = true;
+	MAY_TAKE[Tile::moonTurf_Id] = true;
 	MAY_TAKE[Tile::dirt_Id] = true;
+	MAY_TAKE[Tile::moonDirt_Id] = true;
 	MAY_TAKE[Tile::sand_Id] = true;
 	MAY_TAKE[Tile::gravel_Id] = true;
+	MAY_TAKE[Tile::moonGravel_Id] = true;
 	MAY_TAKE[Tile::flower_Id] = true;
 	MAY_TAKE[Tile::rose_Id] = true;
 	MAY_TAKE[Tile::mushroom_brown_Id] = true;

@@ -493,16 +493,25 @@ bool MoonMineShaftPieces::MoonMineShaftCorridor::postProcess(Level* level, Rando
 		int z = 2 + section * DEFAULT_SHAFT_LENGTH;
 
 		// 4J-PB - Bringing forward the changes in 1.2.3
-		generateBox(level, chunkBB, x0, y0, z, x0, y1 - 1, z, Tile::quartzFence_Id, 0, false);
-		generateBox(level, chunkBB, x1, y0, z, x1, y1 - 1, z, Tile::quartzFence_Id, 0, false);
+		generateBox(level, chunkBB, x0, y0, z, x0, y1 - 1, z, Tile::cobbleWall_Id, WallTile::TYPE_MOON, 0, 0, false);
+		generateBox(level, chunkBB, x1, y0, z, x1, y1 - 1, z, Tile::cobbleWall_Id, WallTile::TYPE_MOON, 0, 0, false);
 		if (random->nextInt(4) == 0)
 		{
-			generateBox(level, chunkBB, x0, y1, z, x0, y1, z, Tile::quartzBlock_Id, 0, false);
-			generateBox(level, chunkBB, x1, y1, z, x1, y1, z, Tile::quartzBlock_Id, 0, false);
+			int id = Tile::moonDungeonBricks_Id;
+			if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+			else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+			generateBox(level, chunkBB, x0, y1, z, x0, y1, z, id, 0, false);
+			id = Tile::moonDungeonBricks_Id;
+			if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+			else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+			generateBox(level, chunkBB, x1, y1, z, x1, y1, z, id, 0, false);
 		}
 		else
 		{
-			generateBox(level, chunkBB, x0, y1, z, x1, y1, z, Tile::quartzBlock_Id, 0, false);
+			int id = Tile::moonDungeonBricks_Id;
+			if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+			else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+			generateBox(level, chunkBB, x0, y1, z, x1, y1, z, id, 0, false);
 		}
 		maybeGenerateBlock(level, chunkBB, random, .1f, x0, y1, z - 1, Tile::greenWeb_Id, 0);
 		maybeGenerateBlock(level, chunkBB, random, .1f, x1, y1, z - 1, Tile::greenWeb_Id, 0);
@@ -548,7 +557,10 @@ bool MoonMineShaftPieces::MoonMineShaftCorridor::postProcess(Level* level, Rando
 			int block = getBlock(level, x, -1, z, chunkBB);
 			if (block == 0)
 			{
-				placeBlock(level, Tile::quartzBlock_Id, 0, x, -1, z, chunkBB);
+				int id = Tile::moonDungeonBricks_Id;
+				if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+				else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+				placeBlock(level, id, 0, x, -1, z, chunkBB);
 			}
 		}
 	}
@@ -697,10 +709,22 @@ bool MoonMineShaftPieces::MoonMineShaftCrossing::postProcess(Level* level, Rando
 	}
 
 	// support pillars
-	generateBox(level, chunkBB, boundingBox->x0 + 1, boundingBox->y0, boundingBox->z0 + 1, boundingBox->x0 + 1, boundingBox->y1, boundingBox->z0 + 1, Tile::quartzBlock_Id, 0, false);
-	generateBox(level, chunkBB, boundingBox->x0 + 1, boundingBox->y0, boundingBox->z1 - 1, boundingBox->x0 + 1, boundingBox->y1, boundingBox->z1 - 1, Tile::quartzBlock_Id, 0, false);
-	generateBox(level, chunkBB, boundingBox->x1 - 1, boundingBox->y0, boundingBox->z0 + 1, boundingBox->x1 - 1, boundingBox->y1, boundingBox->z0 + 1, Tile::quartzBlock_Id, 0, false);
-	generateBox(level, chunkBB, boundingBox->x1 - 1, boundingBox->y0, boundingBox->z1 - 1, boundingBox->x1 - 1, boundingBox->y1, boundingBox->z1 - 1, Tile::quartzBlock_Id, 0, false);
+	int id = Tile::moonDungeonBricks_Id;
+	if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+	else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+	generateBox(level, chunkBB, boundingBox->x0 + 1, boundingBox->y0, boundingBox->z0 + 1, boundingBox->x0 + 1, boundingBox->y1, boundingBox->z0 + 1, id, 0, false);
+	id = Tile::moonDungeonBricks_Id;
+	if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+	else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+	generateBox(level, chunkBB, boundingBox->x0 + 1, boundingBox->y0, boundingBox->z1 - 1, boundingBox->x0 + 1, boundingBox->y1, boundingBox->z1 - 1, id, 0, false);
+	id = Tile::moonDungeonBricks_Id;
+	if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+	else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+	generateBox(level, chunkBB, boundingBox->x1 - 1, boundingBox->y0, boundingBox->z0 + 1, boundingBox->x1 - 1, boundingBox->y1, boundingBox->z0 + 1, id, 0, false);
+	id = Tile::moonDungeonBricks_Id;
+	if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+	else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+	generateBox(level, chunkBB, boundingBox->x1 - 1, boundingBox->y0, boundingBox->z1 - 1, boundingBox->x1 - 1, boundingBox->y1, boundingBox->z1 - 1, id, 0, false);
 
 	// prevent air floating
 	// note: use world coordinates because the corridor hasn't defined
@@ -712,7 +736,10 @@ bool MoonMineShaftPieces::MoonMineShaftCrossing::postProcess(Level* level, Rando
 			int block = getBlock(level, x, boundingBox->y0 - 1, z, chunkBB);
 			if (block == 0)
 			{
-				placeBlock(level, Tile::quartzBlock_Id, 0, x, boundingBox->y0 - 1, z, chunkBB);
+				int id = Tile::moonDungeonBricks_Id;
+				if(random->nextInt(10) == 5) id = Tile::moonDungeonMossyBricks_Id;
+				else if(random->nextInt(10) == 5) id = Tile::moonDungeonCrackedBricks_Id;
+				placeBlock(level, id, 0, x, boundingBox->y0 - 1, z, chunkBB);
 			}
 		}
 	}

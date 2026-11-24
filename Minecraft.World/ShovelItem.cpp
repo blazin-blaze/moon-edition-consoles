@@ -21,6 +21,7 @@ void ShovelItem::staticCtor()
 	diggables->data[10] = Tile::moonTurf;
 	diggables->data[11] = Tile::moonDirt;
 	diggables->data[12] = Tile::cheeseOre;
+	diggables->data[13] = Tile::moonGravel;
 }
 
 ShovelItem::ShovelItem(int id, const Tier *tier) : DiggerItem(id, 1, tier, diggables)

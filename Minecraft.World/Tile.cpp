@@ -263,6 +263,8 @@ Tile *Tile::oxygenator = NULL;
 Tile *Tile::moonStoneStairs = NULL;
 Tile *Tile::moonCobblestoneStairs = NULL;
 
+Tile *Tile::moonGravel = NULL;
+
 DWORD Tile::tlsIdxShape = TlsAlloc();
 
 Tile::ThreadStorage::ThreadStorage()
@@ -922,6 +924,8 @@ void Tile::staticCtor()
 	Tile::oxygenator = (new OxygenatorTile(206))->setBaseItemTypeAndMaterial(Item::eBaseItemType_device, Item::eMaterial_iron)->setDestroyTime(5.0f)->setExplodeable(10)->setSoundType(Tile::SOUND_METAL)->setIconName(L"oxygenator")->setDescriptionId(IDS_TILE_OXYGENATOR)->setUseDescriptionId(IDS_DESC_OXYGENATOR);
 	Tile::moonStoneStairs =(new StairTile(207, Tile::moonDungeonBricks,0))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsMoonStone")->setDescriptionId(IDS_TILE_MOON_STONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
 	Tile::moonCobblestoneStairs =(new StairTile(208, Tile::cobblestone,1))			->setBaseItemTypeAndMaterial(Item::eBaseItemType_stairs,	Item::eMaterial_stone)		->setIconName(L"stairsMoonCobblestone")->setDescriptionId(IDS_TILE_MOON_COBBLESTONE_STAIRS)				->sendTileData()->setUseDescriptionId(IDS_DESC_STAIRS);
+
+	Tile::moonGravel = (new GravelTile(209))							->setDestroyTime(0.6f)->setSoundType(Tile::SOUND_GRAVEL)->setIconName(L"moonGravel")->setDescriptionId(IDS_TILE_MOON_GRAVEL)->setUseDescriptionId(IDS_DESC_GRAVEL);
 
 	// Special cases for certain items since they can have different icons
 	Item::items[wool_Id] = ( new WoolTileItem(Tile::wool_Id- 256) );

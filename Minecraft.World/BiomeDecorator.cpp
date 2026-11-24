@@ -64,10 +64,12 @@ void BiomeDecorator::_init()
 	clayFeature = new ClayFeature(4);
 	sandFeature = new SandFeature(7, Tile::sand_Id);
 	gravelFeature = new SandFeature(6, Tile::gravel_Id);
+	moonGravelFeature = new SandFeature(6, Tile::moonGravel_Id);
 	dirtOreFeature = new OreFeature(Tile::dirt_Id, 32);
 	moonDirtOreFeature = new OreFeature(Tile::moonDirt_Id, 32, Tile::moonStone_Id);
 	cheeseOreFeature = new OreFeature(Tile::cheeseOre_Id, 8, Tile::moonDirt_Id);
 	gravelOreFeature = new OreFeature(Tile::gravel_Id, 32);
+	moonGravelOreFeature = new OreFeature(Tile::moonGravel_Id, 32);
 	coalOreFeature = new OreFeature(Tile::coalOre_Id, 16);
 	ironOreFeature = new OreFeature(Tile::ironOre_Id, 8);
 	copperOreFeature = new OreFeature(Tile::copperOre_Id, 8);
@@ -110,6 +112,15 @@ void BiomeDecorator::decorateMoon()
 	PIXBeginNamedEvent(0, "Decorate ores");
 	decorateMoonOres();
 	PIXEndNamedEvent();
+
+	PIXBeginNamedEvent(0,"Decorate sand/clay/gravel");
+	for (int i = 0; i < 3; i++)
+	{
+		int x = xo + random->nextInt(16) + 8;
+		int z = zo + random->nextInt(16) + 8;
+		moonGravelFeature->place(level, random, x, level->getTopSolidBlock(x, z), z);
+	}
+	PIXEndNamedEvent();
 }
 
 void BiomeDecorator::decorate()
@@ -137,7 +148,7 @@ void BiomeDecorator::decorate()
 	{
 		int x = xo + random->nextInt(16) + 8;
 		int z = zo + random->nextInt(16) + 8;
-		sandFeature->place(level, random, x, level->getTopSolidBlock(x, z), z);
+		gravelFeature->place(level, random, x, level->getTopSolidBlock(x, z), z);
 	}
 	PIXEndNamedEvent();
 
@@ -379,6 +390,7 @@ void BiomeDecorator::decorateMoonOres()
 {
 	level->setInstaTick(true);		// 4J - optimisation
 	decorateDepthSpan(20, moonDirtOreFeature, 0, Level::genDepth);
+	decorateDepthSpan(10, moonGravelOreFeature, 0, Level::genDepth);
 	decorateDepthSpan(30, cheeseOreFeature, 0, Level::genDepth / 2);
 	decorateDepthSpan(10, moonQuartzOreFeature, 0, Level::genDepth / 2);
 	decorateDepthSpan(8, sapphireOreFeature, 0, Level::genDepth / 2);

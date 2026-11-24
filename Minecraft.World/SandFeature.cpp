@@ -2,6 +2,7 @@
 #include "SandFeature.h"
 #include "net.minecraft.world.level.h"
 #include "net.minecraft.world.level.tile.h"
+#include "Dimension.h"
 
 SandFeature::SandFeature(int radius, int tile)
 {
@@ -11,7 +12,7 @@ SandFeature::SandFeature(int radius, int tile)
 
 bool SandFeature::place(Level *level, Random *random, int x, int y, int z)
 {
-	if (level->getMaterial(x, y, z) != Material::water) return false;
+	if (level->getMaterial(x, y, z) != Material::water && level->dimension->id != 2) return false;
 
 	// 4J - optimisation. Without this, we can end up creating a huge number of HeavyTiles to be ticked
 	// a few frames away. I think instatick ought to be fine here - we're only turning rock into gravel,
@@ -44,7 +45,7 @@ bool SandFeature::place(Level *level, Random *random, int x, int y, int z)
 			for (int yy = y - yr; yy <= y + yr; yy++)
 			{
 				int t = level->getTile(xx, yy, zz);
-				if (t == Tile::dirt_Id || t == Tile::grass_Id)
+				if (t == Tile::dirt_Id || t == Tile::grass_Id || t == Tile::moonTurf_Id)
 				{
 					level->setTileAndData(xx, yy, zz, tile, 0, Tile::UPDATE_CLIENTS);
 				}

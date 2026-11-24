@@ -1959,7 +1959,7 @@ AABBList *Level::getCubes(shared_ptr<Entity> source, AABB *box, bool noEntities/
 		}
 		// 4J - also stop player falling out of the bottom of the map if blockAtEdge is true. Again, rock is an arbitrary choice here
 		// 4J Stu - Don't stop entities falling into the void while in The End (it has no bedrock)
-		if( blockAtEdge && ( ( y0 - 1 ) < 0 ) && dimension->id != 1 )
+		if( blockAtEdge && ( ( y0 - 1 ) < 0 ) && dimension->hasGround() )
 		{
 			for (int y = y0 - 1; y < 0; y++)
 			{

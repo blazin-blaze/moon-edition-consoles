@@ -12,6 +12,8 @@
 #include "Tesselator.h"
 #include "EntityTileRenderer.h"
 #include "Options.h"
+#include "..\Minecraft.World\Dimension.h"
+#include "MultiPlayerLevel.h"
 
 bool TileRenderer::fancy = true;
 
@@ -5240,7 +5242,7 @@ bool TileRenderer::tesselateBlockInWorldWithAmbienceOcclusionTexLighting( Tile* 
 	// If we are only rendering the bottom face and we're at the bottom of the world, we shouldn't be able to see this - don't render anything
 	if( ( faceFlags == 1 ) && ( pY == 0 ) )
 	{
-		return false;
+		if(minecraft->level->dimension->hasGround()) return false;
 	}
 
 	applyAmbienceOcclusion = true;
