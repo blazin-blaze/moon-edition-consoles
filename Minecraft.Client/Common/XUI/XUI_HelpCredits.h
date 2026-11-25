@@ -2,7 +2,7 @@
 
 #define CREDITS_TICK_TIMER_ID	(6)				// Arbitrary timer ID used to tick credits for scrolling.
 
-#define MAX_CREDIT_STRINGS		379
+#define MAX_CREDIT_STRINGS		392
 // 213
 
 #include "..\UI\UIStructs.h"

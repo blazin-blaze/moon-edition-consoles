@@ -682,8 +682,8 @@ void MoonLevelRandomLevelSource::calcWaterDepths(ChunkSource* parent, int xt, in
 
 /*
 Function to create index for array of tiles that will be skipped during creation of moon dirt edge (to avoid rough chunk cut-offs)
-- Returns -1 if the tile is in an invalid location for craters (outside of edge)
-- Otherwise, returns index of where the tile should be located in the array based on edge it is located on and its x,y,z coordinates
+- Returns -1 if the tile is in an invalid location for craters (outside of edge/layer)
+- Otherwise, returns index of where the tile should be located in the array based on edge/layer it is located on and its x,y,z coordinates
 */
 int MoonLevelRandomLevelSource::getCraterFlagIndex(int bx, int by, int bz, int minTerrain, int maxTerrain) 
 {
@@ -871,6 +871,8 @@ void MoonLevelRandomLevelSource::postProcess(ChunkSource* parent, int xt, int zt
 						tile == Tile::moonDungeonMossyBricks_Id ||
 						tile == Tile::water_Id ||
 						tile == Tile::greenWeb_Id ||
+						tile == Tile::rail_Id ||
+						tile == Tile::cobbleWall_Id ||
 						tile == 0) {
 						level->setTileAndData(worldX, y, worldZ, Tile::moonDirt_Id, 0, Tile::UPDATE_ALL);
 					}
