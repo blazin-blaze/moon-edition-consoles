@@ -2252,7 +2252,7 @@ void Player::checkMovementStatistiscs(double dx, double dy, double dz)
 				causeFoodExhaustion(FoodConstants::EXHAUSTION_WALK * horizontalDistance * .01f);
 			}
 			if (distanceStep >= 2.0) {
-				if (level->getTile(Mth::floor(x), Mth::floor(bb->y0) - 1, Mth::floor(z)) == Tile::moonTurf_Id || (level->getTile(Mth::floor(x), Mth::floor(bb->y0) - 1, Mth::floor(z)) == Tile::moonDirt_Id)) {
+				if (level->getTile(Mth::floor(x), Mth::floor(bb->y0) - 1, Mth::floor(z)) == Tile::moonTurf_Id || (level->getTile(Mth::floor(x), Mth::floor(bb->y0) - 1, Mth::floor(z)) == Tile::moonDirt_Id) || (level->getTile(Mth::floor(x), Mth::floor(bb->y0) - 1, Mth::floor(z)) == Tile::moonGravel_Id)) {
 					float partY = Mth::floor(bb->y0) + this->random->nextFloat() / 100.0F; //z-fighting
 					float partX = Mth::floor(x);
 					float partZ = Mth::floor(z);
