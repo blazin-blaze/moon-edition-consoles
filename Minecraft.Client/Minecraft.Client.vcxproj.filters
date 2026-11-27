@@ -902,9 +902,6 @@
     <None Include="Common\Buildsteps\4JLibs.ps1">
       <Filter>Buildsteps</Filter>
     </None>
-    <None Include="Xbox\pointer.cur">
-      <Filter>Windows</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -3805,6 +3802,45 @@
     <ClInclude Include="Common\UI\UIControl_DLCList.h">
       <Filter>Common\Source Files\UI\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="AlienVillagerModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlienVillagerRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuggyModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuggyRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Media\xuiscene_oxygenator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FierySmokeParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyModuleModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OilBubbleParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OilDropParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OilSplashParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OxygenSetupModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -5961,6 +5997,42 @@
     <ClCompile Include="Common\UI\UIControl_DLCList.cpp">
       <Filter>Common\Source Files\UI\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="AlienVillagerModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlienVillagerRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuggyModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuggyRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FierySmokeParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequencyModuleModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OilBubbleParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OilDropParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OilSplashParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OxygenSetupModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Xbox\4JLibs\libs\4J_Render_d.lib">
@@ -6241,9 +6313,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Xbox\MinecraftWindows.ico">
-      <Filter>Windows</Filter>
-    </Image>
-    <Image Include="Xbox\MinecraftWindows64.ico">
       <Filter>Windows</Filter>
     </Image>
     <Image Include="Xbox\small.ico">

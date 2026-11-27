@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////
 //
-// C:\Test\Minecraft.spa.h
+// C:\x360-spa-test\Minecraft.spa.h
 //
-// Auto-generated on Sunday, 15 November 2026 at 21:27:47
+// Auto-generated on Friday, 27 November 2026 at 02:35:52
 // Xbox LIVE Game Config project version 1.0.173.0
 // SPA Compiler version 1.0.0.0
 //
@@ -19,7 +19,7 @@ extern "C" {
 // Title info
 //
 
-#define TITLEID_MINECRAFT_MOON_EDITION              0x584111F7
+#define TITLEID_MINECRAFT_MOON_EDITION              0xFFFF4D45
 
 //
 // Context ids
@@ -143,9 +143,6 @@ extern "C" {
 // AvatarAssetAward ids
 //
 
-#define AVATARASSETAWARD_PORKCHOP_TSHIRT                 1
-#define AVATARASSETAWARD_WATCH                           2
-#define AVATARASSETAWARD_CAP                             5
 
 //
 // Stats view ids

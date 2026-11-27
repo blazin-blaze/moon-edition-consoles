@@ -761,10 +761,10 @@
       <ConfigurationFile>$(ProjectDir)xbox\xex-dev.xml</ConfigurationFile>
     </ImageXex>
     <ImageXex>
-      <TitleID>1480659447</TitleID>
+      <TitleID>4294921541</TitleID>
     </ImageXex>
     <ImageXex>
-      <AdditionalSections>584111F7=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
+      <AdditionalSections>FFFF4D45=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
       <Pal50Incompatible>false</Pal50Incompatible>
     </ImageXex>
     <Deploy>
@@ -1166,8 +1166,8 @@ xcopy /q /y /i /s /e $(ProjectDir)DurangoMedia\CU  $(LayoutDir)Image\Loose\CU</C
     </Link>
     <ImageXex>
       <ConfigurationFile>$(ProjectDir)xbox\xex.xml</ConfigurationFile>
-      <TitleID>1480659447</TitleID>
-      <AdditionalSections>584111F7=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
+      <TitleID>4294921541</TitleID>
+      <AdditionalSections>FFFF4D45=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
     </ImageXex>
     <Deploy>
       <DeploymentType>CopyToHardDrive</DeploymentType>
@@ -1214,8 +1214,8 @@ xcopy /q /y /i /s /e $(ProjectDir)DurangoMedia\CU  $(LayoutDir)Image\Loose\CU</C
     </Link>
     <ImageXex>
       <ConfigurationFile>$(ProjectDir)xbox\xex.xml</ConfigurationFile>
-      <TitleID>1480659447</TitleID>
-      <AdditionalSections>584111F7=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
+      <TitleID>4294921541</TitleID>
+      <AdditionalSections>FFFF4D45=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
     </ImageXex>
     <Deploy>
       <DeploymentType>CopyToHardDrive</DeploymentType>
@@ -1262,8 +1262,8 @@ xcopy /q /y /i /s /e $(ProjectDir)DurangoMedia\CU  $(LayoutDir)Image\Loose\CU</C
     </Link>
     <ImageXex>
       <ConfigurationFile>$(ProjectDir)xbox\xex.xml</ConfigurationFile>
-      <TitleID>1480659447</TitleID>
-      <AdditionalSections>584111F7=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
+      <TitleID>4294921541</TitleID>
+      <AdditionalSections>FFFF4D45=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
     </ImageXex>
     <Deploy>
       <DeploymentType>CopyToHardDrive</DeploymentType>
@@ -1311,8 +1311,8 @@ xcopy /q /y /i /s /e $(ProjectDir)DurangoMedia\CU  $(LayoutDir)Image\Loose\CU</C
     </Link>
     <ImageXex>
       <ConfigurationFile>$(ProjectDir)xbox\xex.xml</ConfigurationFile>
-      <TitleID>1480659447</TitleID>
-      <AdditionalSections>584111F7=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
+      <TitleID>4294921541</TitleID>
+      <AdditionalSections>FFFF4D45=$(ProjectDir)xbox\GameConfig\Minecraft.spa,RO;media=$(ProjectDir)XboxMedia\XZP\Minecraft.xzp,RO</AdditionalSections>
     </ImageXex>
     <Deploy>
       <DeploymentType>CopyToHardDrive</DeploymentType>
