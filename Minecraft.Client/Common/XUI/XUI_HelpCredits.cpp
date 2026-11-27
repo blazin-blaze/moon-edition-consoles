@@ -88,7 +88,7 @@ SCreditTextItemDef CScene_Credits::gs_aCreditDefs[MAX_CREDIT_STRINGS] =
 	{ L"Anne Clarke",									NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },
 	{ L"Anthony Kent",									NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },
 	{ L"",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	// extra blank line
-	{ L"Moon Edition Mod",										NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eExtraLargeText },
+	{ L"Minecraft: Moon Edition Mod",										NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eExtraLargeText },
 	{ L"",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	// extra blank line
 	{ L"Created by",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eLargeText },	
 	{ L"BlazinBlaze",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
@@ -98,7 +98,7 @@ SCreditTextItemDef CScene_Credits::gs_aCreditDefs[MAX_CREDIT_STRINGS] =
 	{ L"\"stampylonghead - Trip To The Moon [85]\" video",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"\"iBallisticSquid - Race To The Moon\" series",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	// extra blank line
-	{ L"Beta Testers",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eLargeText },	
+	{ L"Beta Testers/Contributors",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eLargeText },	
 	{ L"Louis (h007755)",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"Ceorar",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"Bruce (itsbruce)",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
@@ -110,6 +110,7 @@ SCreditTextItemDef CScene_Credits::gs_aCreditDefs[MAX_CREDIT_STRINGS] =
 	{ L"1257Plays",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"Galaxy (galaxiums_1st_alt)",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"Kaiquerava2026",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
+	{ L"Deadvoxelx",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
 	{ L"",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	// extra blank line
 	{ L"%s",												IDS_CREDITS_SPECIALTHANKS,			NO_TRANSLATED_STRING,eLargeText },	
 	{ L"Team Galacticraft (textures/code)",												NO_TRANSLATED_STRING,			NO_TRANSLATED_STRING,eSmallText },	
